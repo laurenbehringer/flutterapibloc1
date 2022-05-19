@@ -10,7 +10,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  ActivityService activityService = ActivityService();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
