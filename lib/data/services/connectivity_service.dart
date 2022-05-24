@@ -6,6 +6,7 @@ class ConnectivityService{
   final connectivityStream = StreamController<ConnectivityResult>();
 
   ConnectivityService(){
+    print('check');
     _connectivity.onConnectivityChanged.listen((event) {
       connectivityStream.add(event);
     });

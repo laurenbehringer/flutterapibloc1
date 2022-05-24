@@ -9,17 +9,14 @@ part 'buttontxt_state.dart';
 class ButtontxtBloc extends Bloc<ButtontxtEvent, ButtontxtState> {
   ButtontxtBloc() : super(ButtontxtInitialState()) {
     on<ButtontxtEvent>((event, emit) {
-      // TODO: implement event handler
-
       if (event is Increment){
-        emit(
-          IncrementSuccessState(
-            number: event.number + 1,
-          )
-        );
+        emit(IncrementSuccessState(number: event.number + 1));
       }
 
-
+      if (event is LoadButtontxtEvent){
+        emit(ButtonTxtLoadingState(number: event.number));
+      }
     });
+
   }
 }

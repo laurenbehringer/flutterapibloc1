@@ -12,7 +12,16 @@ class ButtontxtInitialState extends ButtontxtState {
   List<Object> get props => [];
 }
 
-class ButtonTxtLoadingState extends ButtontxtState {}
+class ButtonTxtLoadingState extends ButtontxtState {
+  final int number;
+
+  ButtonTxtLoadingState({
+    required this.number,
+  });
+
+  @override
+  List<Object> get props => [number];
+}
 
 class IncrementSuccessState extends ButtontxtState {
   final int number;

@@ -5,8 +5,10 @@ abstract class ButtontxtEvent extends Equatable {
 }
 
 class LoadButtontxtEvent extends ButtontxtEvent{
+  final int number;
+  LoadButtontxtEvent(this.number);
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [number];
 }
 
 class Increment extends ButtontxtEvent {

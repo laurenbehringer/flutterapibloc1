@@ -8,11 +8,12 @@ class SecscreenBloc extends Bloc<SecscreenEvent, SecscreenState> {
   SecscreenBloc() : super(SecscreenInitial()) {
 
     on<LoadSecscreenEvent>((event, emit) {
-      if (event is LoadSecscreenEvent){
-        emit(SecScreenLoadingState());
-        print (event);
         emit(SecScreenLoadedState(event.number + 1));
-      }
     });
+
+    on<LoadingSecScreenEvent>((event, emit) {
+        emit(SecScreenLoadingState());
+    });
+
   }
 }

@@ -21,10 +21,10 @@ class ActivityApi {
   String activity;
   String type;
   int participants;
-  int price;
+  dynamic price;
   String link;
   String key;
-  double accessibility;
+  dynamic accessibility;
 
   factory ActivityApi.fromJson(Map<String, dynamic> json) => ActivityApi(
     activity: json["activity"],
