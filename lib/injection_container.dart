@@ -10,7 +10,6 @@ final sl = GetIt.instance;
 Future<void> init() async{
   sl.registerFactory(() => ButtontxtBloc());
   sl.registerFactory(() => SecscreenBloc());
-  sl.registerFactory(() => HomeBloc(sl(), sl()));
   sl.registerLazySingleton(() => ActivityService());
   sl.registerLazySingleton(() => ConnectivityService());
 }

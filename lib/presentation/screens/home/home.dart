@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapibloc1/bloc/home_bloc/home_bloc.dart';
 import 'package:flutterapibloc1/data/services/activity_service.dart';
 import 'package:flutterapibloc1/data/services/connectivity_service.dart';
+import 'package:flutterapibloc1/data/services/wildid_service.dart';
 import 'package:flutterapibloc1/presentation/routes/route_const.dart';
 
 class HomeScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
           title: Text("Activity to do"),
           leading: IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, buttontxt);
+              Navigator.pushNamed(context, wildIdScreen);
               },
             icon: Icon(Icons.star)
           ),

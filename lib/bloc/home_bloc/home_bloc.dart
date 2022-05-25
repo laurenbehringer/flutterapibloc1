@@ -11,6 +11,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final ActivityService _activityService;
   final ConnectivityService _connectivityService;
 
+
   HomeBloc(this._activityService, this._connectivityService) : super(HomeLoadingState()){
 
     _connectivityService.connectivityStream.stream.listen((event) {

@@ -12,5 +12,4 @@ class LoadActivityApiEvent extends HomeEvent{
 class NoConnectionEvent extends  HomeEvent{
   @override
   List<Object?> get props => [];
-
 }
