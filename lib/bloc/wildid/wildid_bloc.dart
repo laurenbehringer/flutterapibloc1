@@ -13,23 +13,23 @@ part 'wildid_state.dart';
 
 class WildidBloc extends Bloc<WildidEvent, WildidState> {
 
-  final WildidService _wildidService;
+  final WildidService wildidService;
 
-  WildidBloc(this._wildidService) : super(WildidInitial()) {
-    print('broh1');
-
+  WildidBloc({required this.wildidService}) : super(WildidInitial()) {
 
     on<LoadWildidApiEvent>((event, emit) async {
-      print('broh2');
       emit(WildidLoadingState());
-      final wildid = await _wildidService.getWildidAPI();
-      emit(WildidLoadedState(wildid.status, wildid.articles));
+      try {
+        final wildid = await wildidService.getWildidAPI();
+        emit(WildidLoadedState(wildid.status, wildid.articles));
+      } catch (e){
+        emit(WildidLoadFailedState());
+      }
     });
 
     on<NoConnectionEvent>((event,emit) {
       emit(WildidNoConnectionState());
     });
-
 
   }
 }

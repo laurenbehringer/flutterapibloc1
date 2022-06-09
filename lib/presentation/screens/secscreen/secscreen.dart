@@ -60,7 +60,7 @@ class _SecScreenState extends State<SecScreen> {
             child: Center(
               child: ElevatedButton(
                 onPressed: ()=> BlocProvider.of<SecscreenBloc>(context).add(LoadingSecScreenEvent()),
-                child: Text("Start Loadingg"),
+                child: Text("Start Loading"),
               ),
             ),
           );

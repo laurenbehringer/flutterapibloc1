@@ -41,6 +41,14 @@ dependencies:
   provider: ^6.0.2
   connectivity_plus:
   get_it: ^7.2.0
+  shimmer: ^2.0.0
+  cached_network_image: ^3.2.0
+  shared_preferences:
+  flutter_secure_storage: ^5.0.2
+  google_mobile_ads: ^1.2.0
+  root: ^2.0.2
+  device_info_plus: ^3.2.4
+  sim_data:
 
 
 

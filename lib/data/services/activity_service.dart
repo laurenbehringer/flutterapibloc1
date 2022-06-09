@@ -5,9 +5,9 @@ import 'package:http/http.dart' as http;
 
 class ActivityService{
   Future<ActivityApi> getActivityApi() async {
-    var url = Uri.parse("https://www.boredapi.com/api/activity");
+    var url = Uri.parse("http://www.boredapi.com/api/activity");
     try{
-      var response = await Dio().get("https://www.boredapi.com/api/activity",
+      var response = await Dio().get("http://www.boredapi.com/api/activity",
       onReceiveProgress: (current, max) {
         print('$current - $max');
         }

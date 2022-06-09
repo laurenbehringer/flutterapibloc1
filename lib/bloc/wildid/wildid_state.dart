@@ -24,6 +24,12 @@ class WildidLoadedState extends WildidState{
   List<Object?> get props => [status, articles];
 }
 
+class WildidLoadFailedState extends WildidState{
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
+
 class WildidNoConnectionState extends WildidState{
   @override
   // TODO: implement props
