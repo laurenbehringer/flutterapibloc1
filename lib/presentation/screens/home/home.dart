@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutterapibloc1/bloc/deviceInfo/deviceinfo_bloc.dart';
 import 'package:flutterapibloc1/bloc/home_bloc/home_bloc.dart';
 import 'package:flutterapibloc1/bloc/login/loginn_bloc.dart';
 import 'package:flutterapibloc1/bloc/wildid/wildid_bloc.dart';
 import 'package:flutterapibloc1/data/models/loginpost.dart';
+import 'package:flutterapibloc1/data/services/network_handler.dart';
+import 'package:flutterapibloc1/presentation/Paramater/login_parameter.dart';
 import 'package:flutterapibloc1/presentation/routes/route_const.dart';
+import 'package:flutterapibloc1/presentation/utils/secure_storage.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'dart:io';
@@ -18,6 +22,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Person? person;
+  final storage = new FlutterSecureStorage();
+  NetworkHandler network = new NetworkHandler();
+  LoginParameter loginParameter = LoginParameter();
+
+  final AWOKA = NetworkHandler().redbankurl;
+  final Woka = NetworkHandler.baseurl;
+  final XD = NetworkHandler().Lmfao();
+
 
   /*final BannerAd myBanner = BannerAd(
     adUnitId: "ca-app-pub-4470830479308512/8705681839",
@@ -33,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
     BlocProvider.of<WildidBloc>(context).add(LoadWildidApiEvent());
     BlocProvider.of<HomeBloc>(context).add(LoadActivityApiEvent());
     BlocProvider.of<DeviceinfoBloc>(context).add(LoadingDeviceEvent());
+
   }
 
   @override
@@ -73,6 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return Future.delayed(Duration(seconds: 1), () {
             BlocProvider.of<WildidBloc>(context).add(LoadWildidApiEvent());
             BlocProvider.of<HomeBloc>(context).add(LoadActivityApiEvent());
+            SecureStorage().readAll();
           });
         },
         child: SingleChildScrollView(
@@ -283,8 +297,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ElevatedButton(
                   child: Text("Post"),
                   onPressed: () {
+                    loginParameter.username = "admin";
+                    loginParameter.password = "admin";
                     BlocProvider.of<LoginnBloc>(context)
-                        .add(LoadingLoginEvent());
+                        .add(LoadingLoginEvent(
+                        loginParameter : loginParameter
+                    ));
                   })
             ],
           ),

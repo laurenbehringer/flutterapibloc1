@@ -14,8 +14,10 @@ class AndroidDeviceInfoState extends DeviceinfoState {
   final Map<String, dynamic> androiddeviceInfo;
   final String rootStatus;
   final String androidVersion;
+  final String hello;
 
   AndroidDeviceInfoState({
+    this.hello = '',
     required this.androiddeviceInfo,
     required this.rootStatus,
     required this.androidVersion,

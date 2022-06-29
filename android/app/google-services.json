@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "868295304895",
+    "project_id": "redbanktest-4ac1a",
+    "storage_bucket": "redbanktest-4ac1a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:868295304895:android:0ccdf52c79ff609680480a",
+        "android_client_info": {
+          "package_name": "com.example.flutterapibloc1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "868295304895-0gumetf9jrfgimmvfuta7r019b4g8hdc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXvjkTP52VJAqqSxvAxS1WJEaLgEyvZHw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "868295304895-0gumetf9jrfgimmvfuta7r019b4g8hdc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

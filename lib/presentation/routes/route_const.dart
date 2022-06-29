@@ -5,3 +5,4 @@ const String wildIdScreen = "wildid-screen";
 const String txtfieldScreen = "txtfield-screen";
 const String txtfield2Screen = "txtfield2-screen";
 const String draggableScreen = "draggable-screen";
+const String redbankApiScreen = "redbankApi-screen";

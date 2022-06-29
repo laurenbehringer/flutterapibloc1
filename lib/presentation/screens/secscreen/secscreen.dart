@@ -1,8 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapibloc1/bloc/secscree/secscreen_bloc.dart';
+import 'package:flutterapibloc1/presentation/routes/route_const.dart';
 
 class SecScreen extends StatefulWidget {
   const SecScreen({Key? key}) : super(key: key);
@@ -18,6 +18,15 @@ class _SecScreenState extends State<SecScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Bloc Increment"),
+        actions: [
+          TextButton(
+              onPressed: (){
+            Navigator.pushNamed(context, redbankApiScreen);
+          },
+              child: Text("API", style: TextStyle(
+                color: Colors.black
+              ),))
+        ],
       ),
       body: BlocBuilder<SecscreenBloc,SecscreenState>(
         builder: (context,state){

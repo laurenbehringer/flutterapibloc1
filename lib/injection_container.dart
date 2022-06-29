@@ -4,6 +4,7 @@ import 'package:flutterapibloc1/bloc/home_bloc/home_bloc.dart';
 import 'package:flutterapibloc1/bloc/login/loginn_bloc.dart';
 import 'package:flutterapibloc1/bloc/secscree/secscreen_bloc.dart';
 import 'package:flutterapibloc1/bloc/txtfield/txtfield_bloc.dart';
+import 'package:flutterapibloc1/bloc/verifyuser_cifnum/verify_cifnum_bloc.dart';
 import 'package:flutterapibloc1/bloc/wildid/wildid_bloc.dart';
 import 'package:flutterapibloc1/data/services/activity_service.dart';
 import 'package:flutterapibloc1/data/services/connectivity_service.dart';
@@ -27,4 +28,5 @@ Future<void> init() async{
   sl.registerFactory(() => WildidBloc(wildidService: sl()));
   sl.registerFactory(() => HomeBloc(activityService: sl()));
   sl.registerFactory(() => DeviceinfoBloc(deviceChecker: sl()));
+  sl.registerFactory(() => VerifyCifnumBloc());
 }

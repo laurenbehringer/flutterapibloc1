@@ -4,6 +4,7 @@ import 'package:flutterapibloc1/presentation/routes/route_const.dart';
 import 'package:flutterapibloc1/presentation/screens/buttonandtxt/buttonandtxt_screen.dart';
 import 'package:flutterapibloc1/presentation/screens/draggable/draggable.dart';
 import 'package:flutterapibloc1/presentation/screens/home/home.dart';
+import 'package:flutterapibloc1/presentation/screens/redbankAPI/redbankapi1.dart';
 import 'package:flutterapibloc1/presentation/screens/secscreen/secscreen.dart';
 import 'package:flutterapibloc1/presentation/screens/txtfield/txtfield2_screen.dart';
 import 'package:flutterapibloc1/presentation/screens/txtfield/txtfield_screen.dart';
@@ -39,6 +40,10 @@ class Routes{
         case draggableScreen:
           return MaterialPageRoute(
             builder: (_) => DraggableScreen(),
+          );
+        case redbankApiScreen:
+          return MaterialPageRoute(
+            builder: (_) => RedbankApi(),
           );
         default:
           throw('This route name does not exit');

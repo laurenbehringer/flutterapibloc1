@@ -12,7 +12,7 @@ class ActivityService{
         print('$current - $max');
         }
       );
-      print("WKWKWKWKWKWK ${response.data}");
+      print("response of activity:  ${response.data}");
       final activity = activityApiFromJson(jsonEncode(response.data));
       return activity;
     } catch(e){

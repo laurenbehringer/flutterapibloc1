@@ -4,15 +4,16 @@ abstract class LoginnEvent extends Equatable {
   const LoginnEvent();
 }
 
-
 class LoadingLoginEvent extends LoginnEvent{
+  final LoginParameter loginParameter;
+
+  LoadingLoginEvent({required this.loginParameter});
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [loginParameter];
 }
 
 class LoadedLoginEvent extends LoginnEvent{
-  final Person person;
-  LoadedLoginEvent(this.person);
   @override
-  List<Object?> get props => [person];
+  List<Object?> get props => [];
 }

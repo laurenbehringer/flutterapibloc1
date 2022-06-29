@@ -6,6 +6,7 @@ import 'package:flutterapibloc1/bloc/home_bloc/home_bloc.dart';
 import 'package:flutterapibloc1/bloc/login/loginn_bloc.dart';
 import 'package:flutterapibloc1/bloc/secscree/secscreen_bloc.dart';
 import 'package:flutterapibloc1/bloc/txtfield/txtfield_bloc.dart';
+import 'package:flutterapibloc1/bloc/verifyuser_cifnum/verify_cifnum_bloc.dart';
 import 'package:flutterapibloc1/bloc/wildid/wildid_bloc.dart';
 import 'package:flutterapibloc1/injection_container.dart' as di;
 import 'package:flutterapibloc1/injection_container.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
   final wildidBloc = sl<WildidBloc>();
   final homeBloc = sl<HomeBloc>();
   final deviceinfoBloc = sl<DeviceinfoBloc>();
+  final verifyUserCifnum = sl<VerifyCifnumBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => loginBloc),
         BlocProvider(create: (_) => homeBloc),
         BlocProvider(create: (_) => deviceinfoBloc),
-
+        BlocProvider(create: (_) => verifyUserCifnum),
       ],
       child: MaterialApp(
           onGenerateRoute: Routes().onGenerateRoute,
