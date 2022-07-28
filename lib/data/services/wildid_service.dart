@@ -3,8 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:flutterapibloc1/data/models/wildid_api.dart';
 
 class WildidService{
+  var url = Uri.parse('https://laurenbehringer.github.io/news.json');
   Future<WildidApi> getWildidAPI() async{
-    var url = Uri.parse('https://laurenbehringer.github.io/news.json');
     try{
       var response = await Dio().get("https://laurenbehringer.github.io/news.json");
       // var jsonData = response.data as Map<String, dynamic>;

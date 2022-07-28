@@ -3,6 +3,7 @@ import 'package:flutterapibloc1/bloc/deviceInfo/deviceinfo_bloc.dart';
 import 'package:flutterapibloc1/bloc/home_bloc/home_bloc.dart';
 import 'package:flutterapibloc1/bloc/login/loginn_bloc.dart';
 import 'package:flutterapibloc1/bloc/secscree/secscreen_bloc.dart';
+import 'package:flutterapibloc1/bloc/trial/trial_bloc.dart';
 import 'package:flutterapibloc1/bloc/txtfield/txtfield_bloc.dart';
 import 'package:flutterapibloc1/bloc/verifyuser_cifnum/verify_cifnum_bloc.dart';
 import 'package:flutterapibloc1/bloc/wildid/wildid_bloc.dart';
@@ -29,4 +30,5 @@ Future<void> init() async{
   sl.registerFactory(() => HomeBloc(activityService: sl()));
   sl.registerFactory(() => DeviceinfoBloc(deviceChecker: sl()));
   sl.registerFactory(() => VerifyCifnumBloc());
+  sl.registerFactory(() => TrialBloc());
 }

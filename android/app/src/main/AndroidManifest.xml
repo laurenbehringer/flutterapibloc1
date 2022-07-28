@@ -1,5 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.flutterapibloc1">
+    <queries>
+        <!-- If your app makes calls -->
+        <intent>
+            <action android:name="android.intent.action.DIAL" />
+            <data android:scheme="tel" />
+        </intent>
+    </queries>
    <application
         android:label="flutterapibloc1"
         android:name="${applicationName}"
@@ -35,4 +42,6 @@
            android:value="ca-app-pub-4470830479308512~5780135598"/>
     </application>
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
 </manifest>

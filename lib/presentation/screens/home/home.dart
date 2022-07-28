@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:animations/animations.dart';
+import 'package:encrypt/encrypt.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +14,7 @@ import 'package:flutterapibloc1/data/models/loginpost.dart';
 import 'package:flutterapibloc1/data/services/network_handler.dart';
 import 'package:flutterapibloc1/presentation/Paramater/login_parameter.dart';
 import 'package:flutterapibloc1/presentation/routes/route_const.dart';
+import 'package:flutterapibloc1/presentation/screens/trialstuff.dart';
 import 'package:flutterapibloc1/presentation/utils/secure_storage.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -38,6 +43,19 @@ class _HomeScreenState extends State<HomeScreen> {
     listener: BannerAdListener(),
   );*/
 
+  Vehicle car1 = Vehicle();
+  Vehicle car2 = Vehicle();
+  Vehicles car3 = Vehicles();
+  Vehicles car4 = Vehicles();
+
+   var key = encrypt.Key.fromUtf8('my32lengthsupersecretnooneknows1');
+  final iv = IV.fromUtf8('put16characters!');
+
+
+  late String encryptedWKWK = encryptMyData("WKWK");
+  late String decryptedWKWK = decryptMyData(encryptedWKWK);
+
+
   @override
   void initState() {
     super.initState();
@@ -45,14 +63,35 @@ class _HomeScreenState extends State<HomeScreen> {
     BlocProvider.of<WildidBloc>(context).add(LoadWildidApiEvent());
     BlocProvider.of<HomeBloc>(context).add(LoadActivityApiEvent());
     BlocProvider.of<DeviceinfoBloc>(context).add(LoadingDeviceEvent());
+    //print("without equatable : ${car3 == car4}");
+    //print("with equatable : ${car1 == car2}");
 
+    print("this is wkwk encrypted");
+    print(encryptedWKWK);
+
+    print("this is wkwk decrypted");
+    print(decryptedWKWK);
+  }
+
+
+//encrypt
+  String encryptMyData(String text) {
+    final e = Encrypter(AES(key, mode: AESMode.cbc));
+    final encrypted_data = e.encrypt(text, iv: iv);
+    return encrypted_data.base64;
+  }
+
+//dycrypt
+  String decryptMyData(String text) {
+    final e = Encrypter(AES(key, mode: AESMode.cbc));
+    final decrypted_data = e.decrypt(Encrypted.fromBase64(text), iv: iv);
+    return decrypted_data;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Activity to do"),
         leading: IconButton(
             onPressed: () {
               Navigator.pushNamed(context, wildIdScreen);
@@ -79,6 +118,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.pushNamed(context, draggableScreen);
               },
               icon: Icon(Icons.attach_money_outlined)),
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, searchScreen);
+              },
+              icon: Icon(Icons.search)),
         ],
       ),
       body: RefreshIndicator(
@@ -148,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 }),
               ),
               SizedBox(height: 10),
-              Text("Picture", style: TextStyle(fontSize: 20)),
+              Text("Picture"),
               SizedBox(height: 10),
               Container(
                 width: MediaQuery.of(context).size.width,

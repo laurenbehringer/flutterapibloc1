@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapibloc1/bloc/wildid/wildid_bloc.dart';
 import 'package:flutterapibloc1/data/services/connectivity_service.dart';
+import 'package:flutterapibloc1/presentation/routes/route_const.dart';
 import 'package:shimmer/shimmer.dart';
 
 class WildId extends StatefulWidget {
@@ -36,6 +37,18 @@ class _WildIdState extends State<WildId> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Wildid"),
+        actions: [
+          IconButton(
+              onPressed: (){
+                Navigator.pushNamed(context, aliceScreen);
+              },
+              icon: Icon(Icons.account_balance_wallet_outlined)),
+          IconButton(
+              onPressed: (){
+                Navigator.pushNamed(context, trialScreen);
+              },
+              icon: Icon(Icons.account_balance_wallet_outlined))
+        ],
       ),
       body: Column(
         children: [

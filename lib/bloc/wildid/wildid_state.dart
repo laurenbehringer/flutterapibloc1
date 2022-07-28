@@ -17,11 +17,13 @@ class WildidLoadingState extends WildidState {
 class WildidLoadedState extends WildidState{
   final String status;
   final List<Article> articles;
+  final List<Article> displayarticle_list;
+  final bool isSearch;
 
-  WildidLoadedState(this.status, this.articles);
+  WildidLoadedState({this.status = '', required this.articles, this.displayarticle_list = const [], this.isSearch = false});
 
   @override
-  List<Object?> get props => [status, articles];
+  List<Object?> get props => [status, articles, displayarticle_list, isSearch];
 }
 
 class WildidLoadFailedState extends WildidState{

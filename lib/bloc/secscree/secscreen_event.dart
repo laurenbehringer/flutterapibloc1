@@ -4,13 +4,13 @@ abstract class SecscreenEvent extends Equatable {
   const SecscreenEvent();
 }
 
-class LoadingSecScreenEvent extends SecscreenEvent{
+class LoadingSecScreenEvent extends SecscreenEvent {
   @override
   // TODO: implement props
   List<Object?> get props => [];
 }
 
-class LoadSecscreenEvent extends SecscreenEvent{
+class LoadSecscreenEvent extends SecscreenEvent {
   final int number;
 
   LoadSecscreenEvent(this.number);
@@ -18,3 +18,8 @@ class LoadSecscreenEvent extends SecscreenEvent{
   List<Object?> get props => [number];
 }
 
+class LoadContactEvent extends SecscreenEvent {
+  LoadContactEvent();
+  @override
+  List<Object?> get props => [];
+}
