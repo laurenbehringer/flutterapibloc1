@@ -163,9 +163,9 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                                 isAdded = false;
                                 dealbloc.add(DrawCardEvent(
                                     deck_id: deckId!, draw_count: "1"));
-                                setState(() {
-                                  dealeramount++;
-                                });
+                                // setState(() {
+                                //   dealeramount++;
+                                // });
                               },
                               child: Text("deal"));
                         },
@@ -187,18 +187,23 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                               }
                               return Container(
                                 height: 100,
-                                width: dealeramount * 50,
-                                child: Row(
-                                  children: List.from(
-                                      dealercards.map((name) => Column(
-                                            children: [
-                                              Container(
-                                                  height: 100,
-                                                  width: 50,
-                                                  child: CachedNetworkImage(
-                                                      imageUrl: name))
-                                            ],
-                                          ))),
+                                width: double.infinity,
+                                child: Center(
+                                  child: ListView(
+                                    scrollDirection: Axis.horizontal,
+                                    shrinkWrap: true,
+                                    children: List.from(
+                                        dealercards.map((name) => Column(
+                                              children: [
+                                                Container(
+                                                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                                                    height: 100,
+                                                    width: 50,
+                                                    child: CachedNetworkImage(
+                                                        imageUrl: name))
+                                              ],
+                                            ))),
+                                  ),
                                 ),
                               );
                             }

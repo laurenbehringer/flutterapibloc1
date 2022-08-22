@@ -2,6 +2,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapibloc1/presentation/routes/route_const.dart';
 import 'package:flutterapibloc1/presentation/screens/blackjack/blackjackScreens.dart';
+import 'package:flutterapibloc1/presentation/screens/blackjack/blackjack_test_screen.dart';
 import 'package:flutterapibloc1/presentation/utils/soundEffects.dart';
 
 class BlackJackHome extends StatefulWidget {
@@ -60,23 +61,23 @@ class _BlackJackHomeState extends State<BlackJackHome> {
                   },
                   child: Text("Play")),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width / 1.5,
               height: MediaQuery.of(context).size.height * 0.08,
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: button),
-                  onPressed: () async {
-                    Navigator.pushReplacementNamed(context, blackjacScreen);
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => const BlackJackTestScreen()));
                   },
-                  child: Text("Settings")),
+                  child: const Text("Settings")),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width / 1.5,
               height: MediaQuery.of(context).size.height * 0.08,
               child: ElevatedButton(
@@ -84,7 +85,7 @@ class _BlackJackHomeState extends State<BlackJackHome> {
                   onPressed: () async {
                     Navigator.pushReplacementNamed(context, blackjacScreen);
                   },
-                  child: Text("Quit")),
+                  child: const Text("Quit")),
             )
           ],
         ),

@@ -12,6 +12,7 @@ import 'package:flutterapibloc1/data/services/activity_service.dart';
 import 'package:flutterapibloc1/data/services/connectivity_service.dart';
 import 'package:flutterapibloc1/data/services/network_handler.dart';
 import 'package:flutterapibloc1/data/services/wildid_service.dart';
+import 'package:flutterapibloc1/presentation/screens/blackjack/bloc/blackjack_test_bloc.dart';
 import 'package:flutterapibloc1/presentation/utils/device_checker.dart';
 import 'package:get_it/get_it.dart';
 
@@ -33,4 +34,5 @@ Future<void> init() async {
   sl.registerFactory(() => DeviceinfoBloc(deviceChecker: sl()));
   sl.registerFactory(() => VerifyCifnumBloc());
   sl.registerFactory(() => TrialBloc());
+  sl.registerFactory(() => BlackjackTestBloc());
 }

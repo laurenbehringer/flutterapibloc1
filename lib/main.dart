@@ -17,6 +17,7 @@ import 'package:flutterapibloc1/injection_container.dart' as di;
 import 'package:flutterapibloc1/injection_container.dart';
 import 'package:flutterapibloc1/presentation/routes/route_const.dart';
 import 'package:flutterapibloc1/presentation/routes/routes.dart';
+import 'package:flutterapibloc1/presentation/screens/blackjack/bloc/blackjack_test_bloc.dart';
 import 'package:flutterapibloc1/presentation/screens/home/home.dart';
 import 'package:flutterapibloc1/presentation/screens/wildid/wildid_screen.dart';
 import 'package:flutterapibloc1/presentation/utils/device_checker.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
   final verifyUserCifnum = sl<VerifyCifnumBloc>();
   final trialBloc = sl<TrialBloc>();
   final blackJackBloc = sl<BlackjackkBloc>();
+  final blackJackTestBloc = sl<BlackjackTestBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +63,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => verifyUserCifnum),
         BlocProvider(create: (_) => trialBloc),
         BlocProvider(create: (_) => blackJackBloc),
+        BlocProvider(create: (_) => blackJackTestBloc),
       ],
       child: MaterialApp(
           onGenerateRoute: Routes().onGenerateRoute,

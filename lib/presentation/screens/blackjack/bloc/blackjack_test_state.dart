@@ -1,10 +1,12 @@
 part of 'blackjack_test_bloc.dart';
 
-abstract class BlackjackTestState extends Equatable {
-  const BlackjackTestState();
+BlackJackTestParameter parameter = BlackJackTestParameter();
+
+abstract class BlackjackTestState {
+  BlackJackTestParameter props = parameter;
 }
 
 class BlackjackTestInitial extends BlackjackTestState {
-  @override
-  List<Object> get props => [];
 }
+
+class BlackjackTestLoad extends BlackjackTestState {}
