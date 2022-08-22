@@ -11,7 +11,6 @@ class BlackJackTestScreen extends StatefulWidget {
 }
 
 class _BlackJackTestScreenState extends State<BlackJackTestScreen> {
-
   List<Card> cards = [];
 
   @override

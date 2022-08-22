@@ -6,7 +6,6 @@ abstract class BlackjackTestState {
   BlackJackTestParameter props = parameter;
 }
 
-class BlackjackTestInitial extends BlackjackTestState {
-}
+class BlackjackTestInitial extends BlackjackTestState {}
 
 class BlackjackTestLoad extends BlackjackTestState {}

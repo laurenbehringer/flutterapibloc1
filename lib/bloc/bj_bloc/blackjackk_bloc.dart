@@ -23,7 +23,6 @@ class BlackjackkBloc extends Bloc<BlackjackkEvent, BlackjackkState> {
       }
 
       if (event is DrawCardEvent) {
-        //emit(BlackjackkLoad());
         final drawCards = await BJNetwork.DrawCards(
             deck_id: event.deck_id, draw_count: event.draw_count);
         SoundEffect.dealCard();
