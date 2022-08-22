@@ -57,7 +57,6 @@ class _AlphabetScrollPage2State extends State<AlphabetScrollPage2> {
       itemCount: items.length,
       itemBuilder: (context, index) {
         final item = items[index];
-
         return _buildListItem(item);
       },
       //optional

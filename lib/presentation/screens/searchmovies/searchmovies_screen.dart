@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutterapibloc1/data/models/movie_model.dart';
 import 'package:flutterapibloc1/presentation/routes/route_const.dart';
 
-
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
 
@@ -12,13 +11,13 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-
   List<MovieModel> displaymovie_list = List.from(movie_list);
 
   void updateList(String value) {
     setState(() {
-      displaymovie_list = movie_list.where((element) =>
-          element.movie_title!.toLowerCase().contains(value.toLowerCase()))
+      displaymovie_list = movie_list
+          .where((element) =>
+              element.movie_title!.toLowerCase().contains(value.toLowerCase()))
           .toList();
     });
   }
@@ -32,10 +31,15 @@ class _SearchPageState extends State<SearchPage> {
         elevation: 0,
         actions: [
           IconButton(
-              onPressed: (){
+              onPressed: () {
                 Navigator.pushNamed(context, countryScreen);
               },
-              icon: Icon(Icons.public))
+              icon: Icon(Icons.public)),
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, blackjackScreen);
+              },
+              icon: Icon(Icons.credit_card_outlined))
         ],
       ),
       body: Padding(
@@ -44,15 +48,18 @@ class _SearchPageState extends State<SearchPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Search for a movie", style: TextStyle(
-                color: Colors.white,
-                fontSize: 22, fontWeight: FontWeight.bold
-            ),),
+            Text(
+              "Search for a movie",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold),
+            ),
             SizedBox(
               height: 20,
             ),
             TextField(
-              onChanged: (value){
+              onChanged: (value) {
                 updateList(value);
               },
               style: TextStyle(color: Colors.white),
@@ -61,31 +68,32 @@ class _SearchPageState extends State<SearchPage> {
                 fillColor: Colors.purple,
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide.none
-                ),
+                    borderSide: BorderSide.none),
                 hintText: "Search here",
                 hintStyle: TextStyle(color: Colors.white),
                 prefixIcon: Icon(Icons.search, color: Colors.white),
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             Expanded(
                 child: ListView.builder(
                     itemCount: displaymovie_list.length,
                     itemBuilder: (context, index) {
                       return ListTile(
                         leading: CachedNetworkImage(
-                          imageUrl: displaymovie_list[index].movie_poster_url!,),
+                          imageUrl: displaymovie_list[index].movie_poster_url!,
+                        ),
                         title: Text(displaymovie_list[index].movie_title!,
                             style: TextStyle(color: Colors.white)),
                         subtitle: Text(displaymovie_list[index].movie_year!,
                             style: TextStyle(color: Colors.white)),
-                        trailing: Text(displaymovie_list[index].rating!.toString(),
+                        trailing: Text(
+                            displaymovie_list[index].rating!.toString(),
                             style: TextStyle(color: Colors.yellow)),
                       );
-                    }
-                )
-            )
+                    }))
           ],
         ),
       ),

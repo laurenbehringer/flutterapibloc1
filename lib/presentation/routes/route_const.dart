@@ -12,3 +12,7 @@ const String searchScreen = "search-screen";
 const String countryScreen = "country-screen";
 const String contactsScreen = "contacts-screen";
 const String azlistviewScreen = "azlistview-screen";
+const String azcontactsScreen = "azcontacts-screen";
+const String blackjackScreen = "blackjack-screen";
+const String blackjacScreen = "blackjac-screen";
+const String blackjackhomeScreen = "homebj-screen";

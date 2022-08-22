@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterapibloc1/presentation/routes/route_const.dart';
 import 'package:flutterapibloc1/presentation/screens/azlistview/alphabetscrollpage.dart';
 
 class AzListViewScreen extends StatefulWidget {
@@ -15,7 +16,14 @@ class _AzListViewScreenState extends State<AzListViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Azlistview"),
+        title: Text("Azlistviewww"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, azcontactsScreen);
+              },
+              icon: Icon(Icons.add))
+        ],
       ),
       body: AlphabetScrollPage2(
           onClickedItem: (item) {

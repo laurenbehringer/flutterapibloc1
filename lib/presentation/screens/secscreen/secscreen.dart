@@ -151,7 +151,7 @@ class _AZItem extends ISuspensionBean {
   _AZItem({required this.title, required this.tag});
 
   @override
-  String getSuspensionTag() => tag!;
+  String getSuspensionTag() => tag;
 }
 
 class _AlphabetScrollPageState extends State<AlphabetScrollPage> {

@@ -1,7 +1,9 @@
 import 'package:alice/alice.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterapibloc1/bloc/bj_bloc/blackjackk_bloc.dart';
 import 'package:flutterapibloc1/bloc/buttontxt/buttontxt_bloc.dart';
 import 'package:flutterapibloc1/bloc/deviceInfo/deviceinfo_bloc.dart';
 import 'package:flutterapibloc1/bloc/home_bloc/home_bloc.dart';
@@ -43,6 +45,7 @@ class MyApp extends StatelessWidget {
   final deviceinfoBloc = sl<DeviceinfoBloc>();
   final verifyUserCifnum = sl<VerifyCifnumBloc>();
   final trialBloc = sl<TrialBloc>();
+  final blackJackBloc = sl<BlackjackkBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +60,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => deviceinfoBloc),
         BlocProvider(create: (_) => verifyUserCifnum),
         BlocProvider(create: (_) => trialBloc),
+        BlocProvider(create: (_) => blackJackBloc),
       ],
       child: MaterialApp(
           onGenerateRoute: Routes().onGenerateRoute,

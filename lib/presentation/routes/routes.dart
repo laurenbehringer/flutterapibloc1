@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapibloc1/presentation/routes/route_const.dart';
+import 'package:flutterapibloc1/presentation/screens/azlistview/azcontacts/azcontacts_screen.dart';
 import 'package:flutterapibloc1/presentation/screens/azlistview/azlistview_screen.dart';
+import 'package:flutterapibloc1/presentation/screens/blackjack/blackjackScreens.dart';
+import 'package:flutterapibloc1/presentation/screens/blackjack/blackjack_home_screen.dart';
+import 'package:flutterapibloc1/presentation/screens/blackjack/blackjack_screen.dart';
 import 'package:flutterapibloc1/presentation/screens/buttonandtxt/buttonandtxt_screen.dart';
 import 'package:flutterapibloc1/presentation/screens/contacts/contacts_screen.dart';
 import 'package:flutterapibloc1/presentation/screens/draggable/draggable.dart';
@@ -75,6 +79,22 @@ class Routes {
       case azlistviewScreen:
         return MaterialPageRoute(
           builder: (_) => AzListViewScreen(),
+        );
+      case azcontactsScreen:
+        return MaterialPageRoute(
+          builder: (_) => AzContacts(),
+        );
+      case blackjackScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlackJackScreen(),
+        );
+      case blackjacScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlackJacScreen(),
+        );
+      case blackjackhomeScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlackJackHome(),
         );
       default:
         throw ('This route name does not exit');

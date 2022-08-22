@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutterapibloc1/bloc/bj_bloc/blackjackk_bloc.dart';
 import 'package:flutterapibloc1/bloc/deviceInfo/deviceinfo_bloc.dart';
 import 'package:flutterapibloc1/bloc/home_bloc/home_bloc.dart';
 import 'package:flutterapibloc1/bloc/login/loginn_bloc.dart';
@@ -14,6 +15,7 @@ import 'package:flutterapibloc1/data/models/loginpost.dart';
 import 'package:flutterapibloc1/data/services/network_handler.dart';
 import 'package:flutterapibloc1/presentation/Paramater/login_parameter.dart';
 import 'package:flutterapibloc1/presentation/routes/route_const.dart';
+import 'package:flutterapibloc1/presentation/screens/blackjack/blackjack_screen.dart';
 import 'package:flutterapibloc1/presentation/screens/trialstuff.dart';
 import 'package:flutterapibloc1/presentation/utils/secure_storage.dart';
 import 'package:shimmer/shimmer.dart';
@@ -35,7 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final Woka = NetworkHandler.baseurl;
   final XD = NetworkHandler().Lmfao();
 
-
   /*final BannerAd myBanner = BannerAd(
     adUnitId: "ca-app-pub-4470830479308512/8705681839",
     size: AdSize.banner,
@@ -48,13 +49,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Vehicles car3 = Vehicles();
   Vehicles car4 = Vehicles();
 
-   var key = encrypt.Key.fromUtf8('my32lengthsupersecretnooneknows1');
+  var key = encrypt.Key.fromUtf8('my32lengthsupersecretnooneknows1');
   final iv = IV.fromUtf8('put16characters!');
-
 
   late String encryptedWKWK = encryptMyData("WKWK");
   late String decryptedWKWK = decryptMyData(encryptedWKWK);
-
 
   @override
   void initState() {
@@ -72,7 +71,6 @@ class _HomeScreenState extends State<HomeScreen> {
     print("this is wkwk decrypted");
     print(decryptedWKWK);
   }
-
 
 //encrypt
   String encryptMyData(String text) {
@@ -120,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: Icon(Icons.attach_money_outlined)),
           IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, searchScreen);
+                Navigator.pushNamed(context, blackjackhomeScreen);
               },
               icon: Icon(Icons.search)),
         ],
@@ -192,7 +190,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 }),
               ),
               SizedBox(height: 10),
-              Text("Picture"),
+              BlocBuilder<BlackjackkBloc, BlackjackkState>(
+                builder: (context, state) {
+                  if (state is BlackjackkShuffleLoaded) {
+                    return Text(state.bjshuffle.deckId);
+                  }
+                  return Text("Picturess");
+                },
+              ),
               SizedBox(height: 10),
               Container(
                 width: MediaQuery.of(context).size.width,
@@ -253,10 +258,10 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(height: 10),
               BlocBuilder<DeviceinfoBloc, DeviceinfoState>(
                 builder: (context, state) {
-                  if (state is DeviceInfoLoading){
+                  if (state is DeviceInfoLoading) {
                     return CircularProgressIndicator();
                   }
-                  if (state is AndroidDeviceInfoState){
+                  if (state is AndroidDeviceInfoState) {
                     return Container(
                       width: 300,
                       height: 100,
@@ -264,7 +269,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         children: [
                           Text("bruh"),
-                          Text("Model Name :" + state.androiddeviceInfo['manufacturer'] + " " + state.androiddeviceInfo['model']),
+                          Text("Model Name :" +
+                              state.androiddeviceInfo['manufacturer'] +
+                              " " +
+                              state.androiddeviceInfo['model']),
                           Text("Rooted? " + state.rootStatus),
                           Text("Android Version: " + state.androidVersion),
                         ],
@@ -344,9 +352,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     loginParameter.username = "admin";
                     loginParameter.password = "admin";
                     BlocProvider.of<LoginnBloc>(context)
-                        .add(LoadingLoginEvent(
-                        loginParameter : loginParameter
-                    ));
+                        .add(LoadingLoginEvent(loginParameter: loginParameter));
                   })
             ],
           ),

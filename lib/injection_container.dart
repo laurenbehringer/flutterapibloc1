@@ -1,3 +1,4 @@
+import 'package:flutterapibloc1/bloc/bj_bloc/blackjackk_bloc.dart';
 import 'package:flutterapibloc1/bloc/buttontxt/buttontxt_bloc.dart';
 import 'package:flutterapibloc1/bloc/deviceInfo/deviceinfo_bloc.dart';
 import 'package:flutterapibloc1/bloc/home_bloc/home_bloc.dart';
@@ -16,13 +17,14 @@ import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
 
-Future<void> init() async{
+Future<void> init() async {
   sl.registerLazySingleton(() => ActivityService());
   sl.registerLazySingleton(() => ConnectivityService());
   sl.registerLazySingleton(() => NetworkHandler());
   sl.registerLazySingleton(() => WildidService());
   sl.registerLazySingleton(() => DeviceChecker());
   sl.registerFactory(() => ButtontxtBloc());
+  sl.registerFactory(() => BlackjackkBloc());
   sl.registerFactory(() => SecscreenBloc());
   sl.registerFactory(() => TxtfieldBloc());
   sl.registerFactory(() => LoginnBloc(networkHandler: sl()));
