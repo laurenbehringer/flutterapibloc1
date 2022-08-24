@@ -31,6 +31,17 @@ class BlackjackkBloc extends Bloc<BlackjackkEvent, BlackjackkState> {
             BlackJackDrawCardResponseModel.fromJson(drawCards)));
       }
 
+      if (event is BustedEvent) {
+        emit(BustedState());
+      }
+
+      if (event is StandEvent) {
+        emit(StandState());
+      }
+      if (event is WinEvent) {
+        emit(WinState());
+      }
+
       if (event is AddValEvent) {
         emit(BlackjackValueLoaded(event.dealerVal));
       }

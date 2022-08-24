@@ -37,3 +37,18 @@ class BlackjackValueLoaded extends BlackjackkState {
   @override
   List<Object> get props => [dealerVal];
 }
+
+class BustedState extends BlackjackkState {
+  @override
+  List<Object> get props => [];
+}
+
+class StandState extends BlackjackkState {
+  @override
+  List<Object> get props => [];
+}
+
+class WinState extends BlackjackkState {
+  @override
+  List<Object> get props => [];
+}

@@ -1,11 +1,14 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapibloc1/bloc/bj_bloc/blackjackk_bloc.dart';
 import 'package:flutterapibloc1/presentation/Shared%20Widgets/Styles.dart';
+import 'package:flutterapibloc1/presentation/Shared%20Widgets/blackjack/AppBar.dart';
+import 'package:flutterapibloc1/presentation/Shared%20Widgets/blackjack/blackjack_dialogs.dart';
 import 'package:flutterapibloc1/presentation/Shared%20Widgets/willpopscope.dart';
+import 'package:flutterapibloc1/presentation/routes/route_const.dart';
+import 'package:flutterapibloc1/presentation/utils/blackjack/royalValue_checker.dart';
 import 'package:flutterapibloc1/presentation/utils/soundEffects.dart';
 
 class BlackJacScreen extends StatefulWidget {
@@ -18,20 +21,17 @@ class BlackJacScreen extends StatefulWidget {
 class _BlackJacScreenState extends State<BlackJacScreen> {
   String? deckId;
   Color bjCol = Color(0xFF275A1F);
-  List<String> dealercards = [];
-  List<String> playercards = [];
+  List<String> dealercards = [], playercards = [];
   bool isAdded = false, isValAdded = false;
   bool isAdded2 = false, isValAdded2 = false;
   bool playerBust = false, dealerBust = false;
-  bool first = true;
-  var playeramount = 0, dealeramount = 0, dealerVal = 0;
+  bool isDealed = false;
+  var playeramount = 0, dealeramount = 0, dealerVal = 0, playerVal = 0;
 
   final BlackjackkBloc valuebloc = BlackjackkBloc();
   final BlackjackkBloc dealbloc = BlackjackkBloc();
-  final BlackjackkBloc test = BlackjackkBloc();
 
   final BlackjackkBloc playerbloc = BlackjackkBloc();
-  final BlackjackkBloc playervaluebloc = BlackjackkBloc();
 
   @override
   void initState() {
@@ -42,8 +42,6 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var devheight = MediaQuery.of(context).size.height;
-    var devwidth = MediaQuery.of(context).size.width;
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
         systemNavigationBarColor: bjCol, //navigation bar icons' color
@@ -52,45 +50,7 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
         onWillPop: () => OnWillPop(context),
         child: SafeArea(
           child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Color(0xFF1A5B1F),
-              automaticallyImplyLeading: false,
-              elevation: 0,
-              centerTitle: true,
-              leading: Image.asset(
-                "assets/logo.png",
-              ),
-              title: Container(
-                  width: devwidth / 2.5,
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Color(0xFF0A3E31),
-                  ),
-                  child: Center(child: Text("BlackJack"))),
-              actions: [
-                IconButton(
-                    onPressed: () {
-                      SoundEffect.changeVolume(0);
-                    },
-                    icon: Icon(Icons.share)),
-                IconButton(
-                    onPressed: () {
-                      SoundEffect.changeVolume(100);
-                    },
-                    icon: Text("100")),
-                /* IconButton(
-                    onPressed: () {
-                      SoundEffect.changeVolume(0.5);
-                    },
-                    icon: Text("50")),
-                IconButton(
-                    onPressed: () {
-                      SoundEffect.changeVolume(1.0);
-                    },
-                    icon: Text("100")),*/
-              ],
-            ),
+            appBar: bjAppbar(context),
             body: Column(
               children: [
                 Container(
@@ -110,47 +70,29 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                             width: 100,
                             color: Colors.orange,
                             child: BlocBuilder<BlackjackkBloc, BlackjackkState>(
-                              // bloc: deckbloc,
-                              /* buildWhen: (previous, current) =>
-                                //current != previous &&
-                                current is BlackjackkShuffleLoaded,*/
                               builder: (context, state) {
                                 if (state is BlackjackkShuffleLoaded) {
                                   deckId = state.bjshuffle.deckId;
-                                  return Text(state.bjshuffle.deckId);
+                                  return Center(
+                                      child: Column(
+                                    children: [
+                                      Text(
+                                        "Deck ID",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        state.bjshuffle.deckId,
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  ));
                                 }
                                 if (state is BlackjackkLoad) {
                                   return Center(
                                       child: CircularProgressIndicator());
                                 }
                                 return Text("XD");
-                              },
-                            ),
-                          ),
-                          Container(
-                            height: 40,
-                            width: 100,
-                            color: Colors.orange,
-                            child: BlocBuilder<BlackjackkBloc, BlackjackkState>(
-                              bloc: test,
-                              builder: (context, state) {
-                                if (state is BlackjackkLoad) {
-                                  return CircularProgressIndicator();
-                                }
-                                if (state is BlackjackkDrawLoaded) {
-                                  return Container(
-                                    height: 70,
-                                    width: 70,
-                                    color: Colors.red,
-                                  );
-                                }
-                                return ElevatedButton(
-                                  onPressed: () {
-                                    test.add(DrawCardEvent(
-                                        deck_id: deckId!, draw_count: "1"));
-                                  },
-                                  child: Text("K"),
-                                );
                               },
                             ),
                           ),
@@ -243,52 +185,14 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                               for (int i = 0;
                                   i < state.bjdraw.cards.length;
                                   i++) {
-                                print("going $i");
-                                switch (state.bjdraw.cards[i].value) {
-                                  case 'JACK':
-                                    {
-                                      dealerVal += 10;
-                                      valuebloc.add(
-                                          AddValEvent(dealerVal: dealerVal));
-                                    }
-                                    break;
-                                  case 'QUEEN':
-                                    {
-                                      dealerVal += 10;
-                                      valuebloc.add(
-                                          AddValEvent(dealerVal: dealerVal));
-                                    }
-                                    break;
-                                  case 'KING':
-                                    {
-                                      dealerVal += 10;
-                                      valuebloc.add(
-                                          AddValEvent(dealerVal: dealerVal));
-                                    }
-                                    break;
-                                  case 'ACE':
-                                    {
-                                      dealerVal += 11;
-                                      valuebloc.add(
-                                          AddValEvent(dealerVal: dealerVal));
-                                    }
-                                    break;
-                                  default:
-                                    {
-                                      print("loadinggg + $dealerVal");
-                                      dealerVal += int.parse(
-                                          state.bjdraw.cards[i].value != null
-                                              ? state.bjdraw.cards[i].value
-                                              : '0');
-                                      valuebloc.add(
-                                          AddValEvent(dealerVal: dealerVal));
-                                    }
-                                    break;
-                                }
+                                dealerVal += RoyalValueCheck.bruh(
+                                    state.bjdraw.cards[i].value);
+                                valuebloc
+                                    .add(AddValEvent(dealerVal: dealerVal));
                               }
                               isValAdded = true;
                             }
-                            return Text("Value",
+                            return Text("ValueEEEE",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
@@ -297,16 +201,39 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                           return Container();
                         },
                       ),
-                      BlocBuilder<BlackjackkBloc, BlackjackkState>(
+                      BlocConsumer<BlackjackkBloc, BlackjackkState>(
                         bloc: valuebloc,
                         builder: (context, state) {
                           if (state is BlackjackValueLoaded) {
+                            dealerVal = state.dealerVal;
+                            if (state.dealerVal > 21) {
+                              valuebloc.add(WinEvent());
+                            }
                             return (state.dealerVal > 21)
                                 ? Text("BUST", style: ThemeStyles().bustText)
                                 : Text(state.dealerVal.toString(),
                                     style: ThemeStyles().valueText);
                           }
+                          if (state is WinState) {
+                            return Text("$dealerVal",
+                                style: ThemeStyles().valueText);
+                          }
                           return Text(state.toString());
+                        },
+                        listener: (context, state) {
+                          if (state is BlackjackValueLoaded) {
+                            if (state.dealerVal <= playerVal) {
+                              print("the bronze jade");
+                              dealbloc.add(DrawCardEvent(
+                                  deck_id: deckId!, draw_count: "1"));
+                              isAdded = false;
+                            }
+                          }
+                          if (state is WinState) {
+                            Future.delayed(Duration(milliseconds: 700), () {
+                              BJDialogs.showMyWinDialog(context);
+                            });
+                          }
                         },
                       ),
                     ],
@@ -329,13 +256,42 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                             if (state is BlackjackkLoad) {
                               return CircularProgressIndicator();
                             }
-                            return ElevatedButton(
-                                onPressed: () {
-                                  isAdded2 = false;
-                                  playerbloc.add(DrawCardEvent(
-                                      deck_id: deckId!, draw_count: "2"));
-                                },
-                                child: Text("Deal Player"));
+                            if (state is BustedState) {
+                              return Text("Busted XD");
+                            }
+                            if (state is StandState) {
+                              return Text("Standed");
+                            }
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ElevatedButton(
+                                    onPressed: () {
+                                      isAdded2 = false;
+                                      if (isDealed) {
+                                        playerbloc.add(DrawCardEvent(
+                                            deck_id: deckId!, draw_count: "1"));
+                                      } else {
+                                        playerbloc.add(DrawCardEvent(
+                                            deck_id: deckId!, draw_count: "2"));
+                                      }
+                                      isDealed = true;
+                                    },
+                                    child:
+                                        Text(isDealed ? "Hit" : "Deal Player")),
+                                (isDealed)
+                                    ? ElevatedButton(
+                                        onPressed: () {
+                                          playerbloc.add(StandEvent());
+                                          isAdded = false;
+                                          dealbloc.add(DrawCardEvent(
+                                              deck_id: deckId!,
+                                              draw_count: "1"));
+                                        },
+                                        child: Text("Stand"))
+                                    : Container()
+                              ],
+                            );
                           },
                         ),
                         BlocBuilder<BlackjackkBloc, BlackjackkState>(
@@ -362,7 +318,6 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                                 return Container(
                                   height: 100,
                                   width: double.infinity,
-                                  color: Colors.teal,
                                   child: Center(
                                     child: ListView(
                                       scrollDirection: Axis.horizontal,
@@ -375,11 +330,6 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                                                     width: 50,
                                                     child: CachedNetworkImage(
                                                         imageUrl: name),
-                                                    /*  Text(
-                                                      name,
-                                                      style:
-                                                          TextStyle(fontSize: 12),
-                                                    ),*/
                                                   ),
                                                 ],
                                               ))),
@@ -390,7 +340,6 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                               return Container(
                                 height: 100,
                                 width: double.infinity,
-                                color: Colors.teal,
                                 child: Center(
                                   child: ListView(
                                     scrollDirection: Axis.horizontal,
@@ -415,6 +364,44 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                                 ),
                               );
                             }),
+                        BlocBuilder<BlackjackkBloc, BlackjackkState>(
+                          bloc: playerbloc,
+                          builder: (context, state) {
+                            if (state is BlackjackkDrawLoaded) {
+                              for (int i = 0;
+                                  i < state.bjdraw.cards.length;
+                                  i++) {
+                                playerVal += RoyalValueCheck.bruh(
+                                    state.bjdraw.cards[i].value);
+                              }
+                              if (playerVal > 21) {
+                                playerbloc.add(BustedEvent());
+                              }
+                              return Column(
+                                children: [
+                                  Text("Value"),
+                                  Text("$playerVal"),
+                                ],
+                              );
+                            }
+                            if (state is BustedState) {
+                              return Text(
+                                "Busted",
+                                style:
+                                    TextStyle(fontSize: 24, color: Colors.red),
+                              );
+                            }
+                            if (state is StandState) {
+                              return Column(
+                                children: [
+                                  Text("Value"),
+                                  Text("$playerVal"),
+                                ],
+                              );
+                            }
+                            return Container();
+                          },
+                        )
                       ],
                     ),
                   ),

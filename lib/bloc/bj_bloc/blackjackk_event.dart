@@ -32,3 +32,18 @@ class AddValEvent extends BlackjackkEvent {
   @override
   List<Object?> get props => [dealerVal];
 }
+
+class BustedEvent extends BlackjackkEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class StandEvent extends BlackjackkEvent {
+  @override
+  List<Object?> get props => [];
+}
+
+class WinEvent extends BlackjackkEvent {
+  @override
+  List<Object?> get props => [];
+}
