@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutterapibloc1/presentation/Shared%20Widgets/Styles.dart';
 import 'package:flutterapibloc1/presentation/routes/route_const.dart';
 import 'package:flutterapibloc1/presentation/utils/soundEffects.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -36,8 +38,15 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
     preferences?.setInt("playerbal", val);
   }
 
+  static int? getVal() {
+    var returnVal = preferences?.getInt("playerbal");
+    return returnVal;
+  }
+
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: ThemeStyles().bjCol));
     return AppBar(
       backgroundColor: Color(0xFF1A5B1F),
       automaticallyImplyLeading: false,
@@ -54,7 +63,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
             color: Color(0xFF0A3E31),
           ),
           child: Center(
-            child: Text('\$${preferences?.getInt("playerbal") ?? "1000"}'),
+            child: Text('\$${preferences?.getInt("playerbal") ?? 1000}'),
           )),
       actions: [
         IconButton(

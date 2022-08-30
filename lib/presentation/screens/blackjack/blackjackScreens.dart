@@ -8,6 +8,7 @@ import 'package:flutterapibloc1/presentation/Shared%20Widgets/blackjack/AppBar.d
 import 'package:flutterapibloc1/presentation/Shared%20Widgets/blackjack/blackjack_dialogs.dart';
 import 'package:flutterapibloc1/presentation/Shared%20Widgets/willpopscope.dart';
 import 'package:flutterapibloc1/presentation/utils/blackjack/royalValue_checker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BlackJacScreen extends StatefulWidget {
   BlackJacScreen({Key? key}) : super(key: key);
@@ -24,14 +25,16 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
   final BlackjackkBloc valuebloc = BlackjackkBloc();
   final BlackjackkBloc dealbloc = BlackjackkBloc();
   final BlackjackkBloc playerbloc = BlackjackkBloc();
-  int? playerBal;
+
+  var playerBal;
 
   @override
   void initState() {
     // TODO: implement initState
-    BaseAppBar.initializePreference(playerBal).whenComplete(() {
+    playerBal = BaseAppBar.getVal();
+    /*BaseAppBar.initializePreference(playerBal).whenComplete(() {
       setState(() {});
-    });
+    });*/
     BlocProvider.of<BlackjackkBloc>(context).add(ShuffleCardEvent());
     super.initState();
   }
@@ -62,28 +65,33 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                       Container(
                         height: 40,
                         width: 100,
-                        color: Colors.orange,
+                        color: Colors.blue,
                         child: BlocBuilder<BlackjackkBloc, BlackjackkState>(
                           builder: (context, state) {
                             if (state is BlackjackkShuffleLoaded) {
                               deckId = state.bjshuffle.deckId;
-                              return Center(
-                                  child: Column(
+                              return Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     "Deck ID",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
                                   ),
                                   Text(
                                     state.bjshuffle.deckId,
-                                    style: TextStyle(fontSize: 12),
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.white),
                                   ),
                                 ],
-                              ));
+                              );
                             }
                             if (state is BlackjackkLoad) {
-                              return Center(child: CircularProgressIndicator());
+                              return Center(
+                                  child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ));
                             }
                             return Text("XD");
                           },
@@ -193,12 +201,12 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                           }
                           if (state is WinState) {
                             Future.delayed(Duration(milliseconds: 700), () {
-                              BJDialogs.showMyWinDialog(context);
+                              BJDialogs.showMyWinDialog(context, playerBal);
                             });
                           }
                           if (state is LoseState) {
                             Future.delayed(Duration(milliseconds: 700), () {
-                              BJDialogs.showMyLoseDialog(context);
+                              BJDialogs.showMyLoseDialog(context, playerBal);
                             });
                           }
                         },
@@ -383,6 +391,14 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
     );
   }
 }
+
+/*ElevatedButton(
+onPressed: () {
+BaseAppBar.initializePreference(playerBal == null
+? 1000 + 100
+    : playerBal + 100);
+},
+child: Text("+100")),*/
 
 /*BlocBuilder<BlackjackkBloc, BlackjackkState>(
                         bloc: valuebloc,
