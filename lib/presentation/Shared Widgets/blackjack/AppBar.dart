@@ -54,7 +54,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
             color: Color(0xFF0A3E31),
           ),
           child: Center(
-            child: Text('\$${preferences?.getInt("playerbal") ?? "BlackJack"}'),
+            child: Text('\$${preferences?.getInt("playerbal") ?? "1000"}'),
           )),
       actions: [
         IconButton(

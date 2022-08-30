@@ -8,7 +8,6 @@ import 'package:flutterapibloc1/presentation/Shared%20Widgets/blackjack/AppBar.d
 import 'package:flutterapibloc1/presentation/Shared%20Widgets/blackjack/blackjack_dialogs.dart';
 import 'package:flutterapibloc1/presentation/Shared%20Widgets/willpopscope.dart';
 import 'package:flutterapibloc1/presentation/utils/blackjack/royalValue_checker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class BlackJacScreen extends StatefulWidget {
   BlackJacScreen({Key? key}) : super(key: key);
@@ -22,10 +21,9 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
   bool isAdded = false, isValAdded = false, isAdded2 = false, isDealed = false;
   var dealerVal = 0, playerVal = 0;
 
-  static final BlackjackkBloc valuebloc = BlackjackkBloc();
+  final BlackjackkBloc valuebloc = BlackjackkBloc();
   final BlackjackkBloc dealbloc = BlackjackkBloc();
   final BlackjackkBloc playerbloc = BlackjackkBloc();
-
   int? playerBal;
 
   @override
@@ -60,20 +58,6 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                   color: Color(0xFF1A5B1F),
                   child: Column(
                     children: [
-                      ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              BaseAppBar.initializePreference(696969696);
-                            });
-                          },
-                          child: Text("DDD")),
-                      ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              BaseAppBar.initializePreference(420420);
-                            });
-                          },
-                          child: Text("OOO")),
                       SizedBox(height: 15),
                       Container(
                         height: 40,
@@ -234,6 +218,9 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                           builder: (context, state) {
                             if (state is BlackjackkLoad) {
                               return CircularProgressIndicator();
+                            }
+                            if (state is BustedState) {
+                              return Text("Busted XD");
                             }
                             if (state is StandState) {
                               return Text(
