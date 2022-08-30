@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapibloc1/presentation/screens/blackjack/blackjackScreens.dart';
 
 class BJDialogs {
   static Future<void> showMyWinDialog(context) async {
@@ -11,8 +12,7 @@ class BJDialogs {
           content: SingleChildScrollView(
             child: ListBody(
               children: const <Widget>[
-                Text('This is a demo alert dialog.'),
-                Text('Would you like to approve of this message?'),
+                Text('Congratulations You WON'),
               ],
             ),
           ),
@@ -39,8 +39,7 @@ class BJDialogs {
           content: SingleChildScrollView(
             child: ListBody(
               children: const <Widget>[
-                Text('This is a demo alert dialog.'),
-                Text('Would you like to approve of this message?'),
+                Text('YOU LOSE :('),
               ],
             ),
           ),

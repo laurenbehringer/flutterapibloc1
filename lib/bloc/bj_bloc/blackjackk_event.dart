@@ -47,3 +47,8 @@ class WinEvent extends BlackjackkEvent {
   @override
   List<Object?> get props => [];
 }
+
+class LoseEvent extends BlackjackkEvent {
+  @override
+  List<Object?> get props => [];
+}

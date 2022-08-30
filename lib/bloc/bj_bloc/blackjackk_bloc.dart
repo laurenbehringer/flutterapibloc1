@@ -41,6 +41,9 @@ class BlackjackkBloc extends Bloc<BlackjackkEvent, BlackjackkState> {
       if (event is WinEvent) {
         emit(WinState());
       }
+      if (event is LoseEvent) {
+        emit(LoseState());
+      }
 
       if (event is AddValEvent) {
         emit(BlackjackValueLoaded(event.dealerVal));
