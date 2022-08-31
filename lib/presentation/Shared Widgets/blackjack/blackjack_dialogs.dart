@@ -4,7 +4,8 @@ import 'package:flutterapibloc1/presentation/routes/route_const.dart';
 import 'package:flutterapibloc1/presentation/screens/blackjack/blackjackScreens.dart';
 
 class BJDialogs {
-  static Future<void> showMyWinDialog(context, playerBal) async {
+  static Future<void> showMyWinDialog(
+      context, playerBal /*, Future<int> set*/) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -23,8 +24,8 @@ class BJDialogs {
               child: const Text('Approve'),
               onPressed: () {
                 Navigator.of(context).pop();
-                BaseAppBar.initializePreference(
-                    playerBal == null ? 1000 + 100 : playerBal + 100);
+                /*BaseAppBar.initializePreference(
+                    playerBal == null ? 1000 + 100 : playerBal + 100);*/
                 Navigator.pushReplacementNamed(context, blackjacScreen);
               },
             ),
@@ -34,7 +35,8 @@ class BJDialogs {
     );
   }
 
-  static Future<void> showMyLoseDialog(context, playerBal) async {
+  static Future<void> showMyLoseDialog(
+      context, playerBal /*, Future<int> set*/) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -53,8 +55,8 @@ class BJDialogs {
               child: const Text('Approve'),
               onPressed: () {
                 Navigator.of(context).pop();
-                BaseAppBar.initializePreference(
-                    playerBal == null ? 1000 + 100 : playerBal - 100);
+                /*BaseAppBar.initializePreference(
+                    playerBal == null ? 1000 - 100 : playerBal - 100);*/
                 Navigator.pushReplacementNamed(context, blackjacScreen);
               },
             ),

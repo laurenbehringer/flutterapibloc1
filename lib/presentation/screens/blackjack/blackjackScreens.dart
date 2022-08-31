@@ -21,20 +21,37 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
   List<String> dealercards = [], playercards = [];
   bool isAdded = false, isValAdded = false, isAdded2 = false, isDealed = false;
   var dealerVal = 0, playerVal = 0;
+  var playerBal;
 
   final BlackjackkBloc valuebloc = BlackjackkBloc();
   final BlackjackkBloc dealbloc = BlackjackkBloc();
   final BlackjackkBloc playerbloc = BlackjackkBloc();
 
-  var playerBal;
+  int? temp;
+  void _getStoredColor() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? tempVAl = prefs.getInt('temp');
+    setState(() {
+      temp = tempVAl;
+    });
+  }
+
+  void setColor(int tempVal) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt("temp", tempVal);
+    setState(() {
+      temp = tempVal;
+    });
+  }
 
   @override
   void initState() {
     // TODO: implement initState
-    playerBal = BaseAppBar.getVal();
+    /*playerBal = BaseAppBar.getVal();*/
     /*BaseAppBar.initializePreference(playerBal).whenComplete(() {
       setState(() {});
     });*/
+    _getStoredColor();
     BlocProvider.of<BlackjackkBloc>(context).add(ShuffleCardEvent());
     super.initState();
   }
@@ -52,6 +69,7 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
             appBar: BaseAppBar(
               context: context,
               appBar: AppBar(),
+              Balance: temp!,
             ),
             body: Column(
               children: [
@@ -202,11 +220,13 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                           if (state is WinState) {
                             Future.delayed(Duration(milliseconds: 700), () {
                               BJDialogs.showMyWinDialog(context, playerBal);
+                              setColor(temp! + 10);
                             });
                           }
                           if (state is LoseState) {
                             Future.delayed(Duration(milliseconds: 700), () {
                               BJDialogs.showMyLoseDialog(context, playerBal);
+                              setColor(temp! - 10);
                             });
                           }
                         },
@@ -391,6 +411,12 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
     );
   }
 }
+
+/*ElevatedButton(
+onPressed: () {
+setColor(20);
+},
+child: Text("+20")),*/
 
 /*ElevatedButton(
 onPressed: () {

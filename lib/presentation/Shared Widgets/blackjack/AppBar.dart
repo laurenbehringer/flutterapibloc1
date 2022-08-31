@@ -3,13 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutterapibloc1/presentation/Shared%20Widgets/Styles.dart';
 import 'package:flutterapibloc1/presentation/routes/route_const.dart';
 import 'package:flutterapibloc1/presentation/utils/soundEffects.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appBar;
   final BuildContext context;
+  final int Balance;
 
-  BaseAppBar({required this.context, required this.appBar});
+  BaseAppBar(
+      {required this.context, required this.appBar, required this.Balance});
 
   List<String> overflowMenu = [
     'Settings',
@@ -29,18 +30,6 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
         Navigator.pushNamed(context, blackjackStratScreen);
         break;
     }
-  }
-
-  static SharedPreferences? preferences;
-
-  static Future<void> initializePreference(val) async {
-    preferences = await SharedPreferences.getInstance();
-    preferences?.setInt("playerbal", val);
-  }
-
-  static int? getVal() {
-    var returnVal = preferences?.getInt("playerbal");
-    return returnVal;
   }
 
   @override
@@ -63,7 +52,8 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
             color: Color(0xFF0A3E31),
           ),
           child: Center(
-            child: Text('\$${preferences?.getInt("playerbal") ?? 1000}'),
+            child: Text(Balance != null ? Balance.toString() : "100"),
+            /* Text('\$${preferences?.getInt("playerbal") ?? 1000}'),*/
           )),
       actions: [
         IconButton(
