@@ -27,12 +27,12 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
   final BlackjackkBloc dealbloc = BlackjackkBloc();
   final BlackjackkBloc playerbloc = BlackjackkBloc();
 
-  int? temp;
+  int temp = 100;
   void _getStoredColor() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? tempVAl = prefs.getInt('temp');
     setState(() {
-      temp = tempVAl;
+      temp = tempVAl!;
     });
   }
 
@@ -69,7 +69,7 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
             appBar: BaseAppBar(
               context: context,
               appBar: AppBar(),
-              Balance: temp!,
+              Balance: temp,
             ),
             body: Column(
               children: [
@@ -205,8 +205,9 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                               ],
                             );
                           }
-                          return Text("$dealerVal",
-                              style: ThemeStyles().valueText);
+                          return Container();
+                          /* Text("$dealerVal",
+                              style: ThemeStyles().valueText);*/
                         },
                         listener: (context, state) {
                           if (state is BlackjackValueLoaded) {
