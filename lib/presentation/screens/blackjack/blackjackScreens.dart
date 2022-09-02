@@ -9,6 +9,7 @@ import 'package:flutterapibloc1/presentation/Shared%20Widgets/blackjack/blackjac
 import 'package:flutterapibloc1/presentation/Shared%20Widgets/willpopscope.dart';
 import 'package:flutterapibloc1/presentation/utils/blackjack/royalValue_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_circular_text/circular_text.dart';
 
 class BlackJacScreen extends StatefulWidget {
   BlackJacScreen({Key? key}) : super(key: key);
@@ -76,7 +77,13 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                 Container(
                   height: MediaQuery.of(context).size.height / 2.5,
                   width: MediaQuery.of(context).size.width,
-                  color: Color(0xFF1A5B1F),
+                  decoration: BoxDecoration(
+                    color: Color(0xFF1A5B1F),
+                    image: DecorationImage(
+                        image: AssetImage('assets/bjtext.png'),
+                        //fit: BoxFit.fill,
+                        alignment: Alignment.bottomCenter),
+                  ),
                   child: Column(
                     children: [
                       SizedBox(height: 15),
@@ -205,9 +212,10 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                               ],
                             );
                           }
-                          return Container();
-                          /* Text("$dealerVal",
-                              style: ThemeStyles().valueText);*/
+                          return dealerVal == 0
+                              ? Container()
+                              : Text("$dealerVal",
+                                  style: ThemeStyles().valueText);
                         },
                         listener: (context, state) {
                           if (state is BlackjackValueLoaded) {
@@ -237,7 +245,7 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                 ),
                 Expanded(
                   child: Container(
-                    color: Colors.green.shade300,
+                    color: ThemeStyles().bjCol,
                     width: MediaQuery.of(context).size.width,
                     child: Column(
                       children: [
