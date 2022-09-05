@@ -7,6 +7,7 @@ import 'package:flutterapibloc1/presentation/Shared%20Widgets/Styles.dart';
 import 'package:flutterapibloc1/presentation/Shared%20Widgets/blackjack/AppBar.dart';
 import 'package:flutterapibloc1/presentation/Shared%20Widgets/blackjack/blackjack_dialogs.dart';
 import 'package:flutterapibloc1/presentation/Shared%20Widgets/willpopscope.dart';
+import 'package:flutterapibloc1/presentation/routes/route_const.dart';
 import 'package:flutterapibloc1/presentation/utils/blackjack/royalValue_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_circular_text/circular_text.dart';
@@ -18,6 +19,7 @@ class BlackJacScreen extends StatefulWidget {
 }
 
 class _BlackJacScreenState extends State<BlackJacScreen> {
+  var txt = TextEditingController();
   String? deckId;
   List<String> dealercards = [], playercards = [];
   bool isAdded = false, isValAdded = false, isAdded2 = false, isDealed = false;
@@ -28,7 +30,7 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
   final BlackjackkBloc dealbloc = BlackjackkBloc();
   final BlackjackkBloc playerbloc = BlackjackkBloc();
 
-  int temp = 100;
+  int temp = 100, betVal = 0;
   void _getStoredColor() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? tempVAl = prefs.getInt('temp');
@@ -37,7 +39,7 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
     });
   }
 
-  void setColor(int tempVal) async {
+  void setBal(int tempVal) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt("temp", tempVal);
     setState(() {
@@ -83,29 +85,59 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Image.asset(
-                        "assets/1.png",
-                        scale: 10,
+                      GestureDetector(
+                        child: Image.asset(
+                          "assets/1.png",
+                          scale: 10,
+                        ),
+                        onTap: () {
+                          txt.text = "1";
+                        },
                       ),
-                      Image.asset(
-                        "assets/5.png",
-                        scale: 10,
+                      GestureDetector(
+                        child: Image.asset(
+                          "assets/5.png",
+                          scale: 10,
+                        ),
+                        onTap: () {
+                          txt.text = "5";
+                        },
                       ),
-                      Image.asset(
-                        "assets/10.png",
-                        scale: 10,
+                      GestureDetector(
+                        child: Image.asset(
+                          "assets/10.png",
+                          scale: 10,
+                        ),
+                        onTap: () {
+                          txt.text = "10";
+                        },
                       ),
-                      Image.asset(
-                        "assets/20.png",
-                        scale: 10,
+                      GestureDetector(
+                        child: Image.asset(
+                          "assets/20.png",
+                          scale: 10,
+                        ),
+                        onTap: () {
+                          txt.text = "20";
+                        },
                       ),
-                      Image.asset(
-                        "assets/50.png",
-                        scale: 10,
+                      GestureDetector(
+                        child: Image.asset(
+                          "assets/50.png",
+                          scale: 10,
+                        ),
+                        onTap: () {
+                          txt.text = "50";
+                        },
                       ),
-                      Image.asset(
-                        "assets/100.png",
-                        scale: 10,
+                      GestureDetector(
+                        child: Image.asset(
+                          "assets/100.png",
+                          scale: 10,
+                        ),
+                        onTap: () {
+                          txt.text = "100";
+                        },
                       ),
                     ],
                   ),
@@ -124,7 +156,9 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                                 color: Colors.white,
                               )),
                           child: Text("½"),
-                          onPressed: () {},
+                          onPressed: () {
+                            txt.text = (int.parse(txt.text) / 2).toString();
+                          },
                         ),
                       ),
                       Container(
@@ -135,6 +169,7 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                           color: Color(0xFF0A3E31),
                         ),
                         child: TextField(
+                          controller: txt,
                           keyboardType: TextInputType.number,
                           inputFormatters: <TextInputFormatter>[
                             FilteringTextInputFormatter.digitsOnly
@@ -144,6 +179,9 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                           decoration: InputDecoration(
                             border: InputBorder.none,
                           ),
+                          onChanged: (val) {
+                            betVal = int.parse(val);
+                          },
                         ),
                       ),
                       Container(
@@ -157,7 +195,9 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                                 color: Colors.white,
                               )),
                           child: Text("x2"),
-                          onPressed: () {},
+                          onPressed: () {
+                            txt.text = (int.parse(txt.text) * 2).toString();
+                          },
                         ),
                       ),
                     ],
@@ -169,7 +209,9 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                   ),
                   SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     child: Text("Done"),
                     style: ElevatedButton.styleFrom(
                         primary: Colors.green.shade400),
@@ -247,7 +289,7 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                           },
                         ),
                       ),
-                      SizedBox(height: 15),
+                      SizedBox(height: 1),
                       ElevatedButton(
                           onPressed: () => dialogBet(), child: Text("k")),
                       //missing
@@ -359,13 +401,13 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                           if (state is WinState) {
                             Future.delayed(Duration(milliseconds: 700), () {
                               BJDialogs.showMyWinDialog(context);
-                              setColor(temp! + 10);
+                              setBal(temp! + betVal);
                             });
                           }
                           if (state is LoseState) {
                             Future.delayed(Duration(milliseconds: 700), () {
                               BJDialogs.showMyLoseDialog(context, playerBal);
-                              setColor(temp! - 10);
+                              setBal(temp! - betVal);
                             });
                           }
                         },
@@ -497,7 +539,7 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                         SizedBox(
                           height: 20,
                         ),
-                        BlocBuilder<BlackjackkBloc, BlackjackkState>(
+                        BlocConsumer<BlackjackkBloc, BlackjackkState>(
                           bloc: playerbloc,
                           builder: (context, state) {
                             if (state is BlackjackkDrawLoaded) {
@@ -520,9 +562,20 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                               );
                             }
                             if (state is BustedState) {
-                              return Text(
-                                "Busted",
-                                style: ThemeStyles().bustText,
+                              return Column(
+                                children: [
+                                  Text(
+                                    "Busted",
+                                    style: ThemeStyles().bustText,
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pushNamed(
+                                          context, blackjacScreen);
+                                    },
+                                    child: Text("Play Again"),
+                                  )
+                                ],
                               );
                             }
                             if (state is StandState) {
@@ -536,6 +589,13 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                               );
                             }
                             return Container();
+                          },
+                          listener: (context, state) {
+                            if (state is BustedState) {
+                              Future.delayed(Duration(milliseconds: 300), () {
+                                setBal(temp! - betVal);
+                              });
+                            }
                           },
                         )
                       ],
