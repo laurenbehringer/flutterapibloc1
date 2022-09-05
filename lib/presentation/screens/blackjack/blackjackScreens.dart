@@ -48,6 +48,7 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
   @override
   void initState() {
     // TODO: implement initState
+    dialogBet();
     /*playerBal = BaseAppBar.getVal();*/
     /*BaseAppBar.initializePreference(playerBal).whenComplete(() {
       setState(() {});
@@ -55,6 +56,129 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
     _getStoredColor();
     BlocProvider.of<BlackjackkBloc>(context).add(ShuffleCardEvent());
     super.initState();
+  }
+
+  void dialogBet() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => new AlertDialog(
+          backgroundColor: const Color(0xff1C5220),
+          insetPadding: EdgeInsets.zero,
+          content: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.35,
+              child: Column(
+                children: [
+                  Center(
+                      child: new Text(
+                    "Place your bet",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 21,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )),
+                  SizedBox(height: 30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Image.asset(
+                        "assets/1.png",
+                        scale: 10,
+                      ),
+                      Image.asset(
+                        "assets/5.png",
+                        scale: 10,
+                      ),
+                      Image.asset(
+                        "assets/10.png",
+                        scale: 10,
+                      ),
+                      Image.asset(
+                        "assets/20.png",
+                        scale: 10,
+                      ),
+                      Image.asset(
+                        "assets/50.png",
+                        scale: 10,
+                      ),
+                      Image.asset(
+                        "assets/100.png",
+                        scale: 10,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        width: 40,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.green,
+                              shape: const StadiumBorder(),
+                              side: BorderSide(
+                                width: 2,
+                                color: Colors.white,
+                              )),
+                          child: Text("½"),
+                          onPressed: () {},
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Color(0xFF0A3E31),
+                        ),
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 50,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.green,
+                              shape: const StadiumBorder(),
+                              side: BorderSide(
+                                width: 2,
+                                color: Colors.white,
+                              )),
+                          child: Text("x2"),
+                          onPressed: () {},
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    "Minumum \$10 | Maximum \$1000",
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text("Done"),
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.green.shade400),
+                  )
+                ],
+              )),
+        ),
+      );
+    });
   }
 
   @override
@@ -67,6 +191,7 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
         onWillPop: () => OnWillPop(context),
         child: SafeArea(
           child: Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: BaseAppBar(
               context: context,
               appBar: AppBar(),
@@ -123,6 +248,8 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                         ),
                       ),
                       SizedBox(height: 15),
+                      ElevatedButton(
+                          onPressed: () => dialogBet(), child: Text("k")),
                       //missing
                       BlocBuilder<BlackjackkBloc, BlackjackkState>(
                           bloc: dealbloc,
@@ -200,6 +327,9 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                                 valuebloc.add(WinEvent());
                               }
                             }
+                            if (state.dealerVal == playerVal) {
+                              valuebloc.add(DrawEvent());
+                            }
                             return Text(state.dealerVal.toString(),
                                 style: ThemeStyles().valueText);
                           }
@@ -228,7 +358,7 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                           }
                           if (state is WinState) {
                             Future.delayed(Duration(milliseconds: 700), () {
-                              BJDialogs.showMyWinDialog(context, playerBal);
+                              BJDialogs.showMyWinDialog(context);
                               setColor(temp! + 10);
                             });
                           }

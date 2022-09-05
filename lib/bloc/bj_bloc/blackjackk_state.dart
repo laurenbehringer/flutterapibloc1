@@ -57,3 +57,8 @@ class LoseState extends BlackjackkState {
   @override
   List<Object> get props => [];
 }
+
+class DrawState extends BlackjackkState {
+  @override
+  List<Object> get props => [];
+}
