@@ -28,6 +28,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
         Navigator.pushNamed(context, blackjacksettingsScreen);
         break;
       case 'Card Counting':
+        //BJDialogs.showMyDrawDialog(context);
         break;
       case 'Strategy':
         Navigator.pushNamed(context, blackjackStratScreen);

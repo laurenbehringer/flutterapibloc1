@@ -299,38 +299,106 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                               );
                             }
                             return Container(
-                              child: Row(
-                                mainAxisAlignment: isDealed
-                                    ? MainAxisAlignment.spaceEvenly
-                                    : MainAxisAlignment.center,
+                              child: Column(
                                 children: [
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        isAdded2 = false;
-                                        if (isDealed) {
-                                          playerbloc.add(DrawCardEvent(
-                                              deck_id: deckId!,
-                                              draw_count: "1"));
-                                        } else {
-                                          playerbloc.add(DrawCardEvent(
-                                              deck_id: deckId!,
-                                              draw_count: "2"));
-                                        }
-                                        isDealed = true;
-                                      },
-                                      child: Text(
-                                          isDealed ? "Hit" : "Deal Player")),
-                                  (isDealed)
-                                      ? ElevatedButton(
-                                          onPressed: () {
-                                            playerbloc.add(StandEvent());
-                                            isAdded = false;
-                                            dealbloc.add(DrawCardEvent(
-                                                deck_id: deckId!,
-                                                draw_count: "1"));
-                                          },
-                                          child: Text("Stand"))
-                                      : Text("")
+                                  Row(
+                                    mainAxisAlignment: isDealed
+                                        ? MainAxisAlignment.spaceEvenly
+                                        : MainAxisAlignment.center,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          ElevatedButton(
+                                              style: ButtonStyle(
+                                                shape: MaterialStateProperty.all<
+                                                        RoundedRectangleBorder>(
+                                                    RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        side: BorderSide(
+                                                            width: 5,
+                                                            color: isDealed
+                                                                ? Colors.green
+                                                                : Colors
+                                                                    .transparent))),
+                                                backgroundColor:
+                                                    MaterialStateProperty.all(
+                                                        isDealed
+                                                            ? Colors
+                                                                .green.shade800
+                                                            : Colors.blue),
+                                              ),
+                                              onPressed: () {
+                                                isAdded2 = false;
+                                                if (isDealed) {
+                                                  playerbloc.add(DrawCardEvent(
+                                                      deck_id: deckId!,
+                                                      draw_count: "1"));
+                                                } else {
+                                                  playerbloc.add(DrawCardEvent(
+                                                      deck_id: deckId!,
+                                                      draw_count: "2"));
+                                                }
+                                                isDealed = true;
+                                              },
+                                              child: isDealed
+                                                  ? Icon(Icons.add,
+                                                      color: Colors.green)
+                                                  : Text("Deal Player")),
+                                          Text(isDealed ? "Hit" : "",
+                                              style: TextStyle(
+                                                  color: Colors.white)),
+                                        ],
+                                      ),
+                                      (isDealed)
+                                          ? Column(
+                                              children: [
+                                                ElevatedButton(
+                                                    style: ButtonStyle(
+                                                      shape: MaterialStateProperty.all<
+                                                              RoundedRectangleBorder>(
+                                                          RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                              side: BorderSide(
+                                                                  width: 5,
+                                                                  color: isDealed
+                                                                      ? Colors
+                                                                          .red
+                                                                      : Colors
+                                                                          .transparent))),
+                                                      backgroundColor:
+                                                          MaterialStateProperty
+                                                              .all(isDealed
+                                                                  ? Colors.green
+                                                                      .shade800
+                                                                  : Colors
+                                                                      .blue),
+                                                    ),
+                                                    onPressed: () {
+                                                      playerbloc
+                                                          .add(StandEvent());
+                                                      isAdded = false;
+                                                      dealbloc.add(
+                                                          DrawCardEvent(
+                                                              deck_id: deckId!,
+                                                              draw_count: "1"));
+                                                    },
+                                                    child: isDealed
+                                                        ? Icon(Icons.stop,
+                                                            color: Colors.red)
+                                                        : Text("Deal Player")),
+                                                Text(isDealed ? "Stand" : "",
+                                                    style: TextStyle(
+                                                        color: Colors.white)),
+                                              ],
+                                            )
+                                          : Text(""),
+                                    ],
+                                  ),
                                 ],
                               ),
                             );

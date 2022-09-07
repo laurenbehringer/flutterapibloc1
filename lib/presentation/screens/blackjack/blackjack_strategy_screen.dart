@@ -13,35 +13,14 @@ class _BlackJackStrategyState extends State<BlackJackStrategy> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF1A5B1F),
       appBar: AppBar(
-        title: Text("XD?"),
+        backgroundColor: Color(0xFF1A5B1F),
+        centerTitle: true,
+        title: Text("Strategy"),
+        elevation: 0,
       ),
-      body: Center(
-        child: FlipCard(
-          fill: Fill.fillBack,
-          // Fill the back side of the card to make in the same size as the front.
-          direction: FlipDirection.HORIZONTAL,
-          // default
-          front: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: NetworkImage(
-                    "https://opengameart.org/sites/default/files/card%20back%20red.png"),
-              ),
-            ),
-          ),
-          back: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: NetworkImage(
-                    "https://i.pinimg.com/474x/44/d9/f5/44d9f504313cbbd650f4475cea9dbadf.jpg"),
-              ),
-            ),
-          ),
-        ),
-      ),
+      body: Text(""),
     );
   }
 }

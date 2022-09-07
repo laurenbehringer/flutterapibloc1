@@ -23,7 +23,7 @@ class _BlackJackHomeState extends State<BlackJackHome> {
     // TODO: implement initState
     player.setReleaseMode(ReleaseMode.loop);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      SoundEffect.playMain();
+      //SoundEffect.playMain();
     });
     super.initState();
   }
