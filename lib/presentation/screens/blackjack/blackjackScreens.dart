@@ -73,6 +73,12 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
   }
 
   @override
+  void dispose() {
+    txt.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(

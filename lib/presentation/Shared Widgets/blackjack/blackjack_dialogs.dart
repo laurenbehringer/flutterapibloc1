@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 
 class BJDialogs {
   static var txt = TextEditingController();
+  static final _formKey = GlobalKey<FormState>();
 
   static Future<void> showMyWinDialog(context /*, Future<int> set*/) async {
     return showDialog<void>(
@@ -46,10 +47,7 @@ class BJDialogs {
     );
   }
 
-  static Future<void> showMyLoseDialog(
-    context,
-    /*playerBal*/ /*, Future<int> set*/
-  ) async {
+  static Future<void> showMyLoseDialog(context) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -261,20 +259,28 @@ class BJDialogs {
                       borderRadius: BorderRadius.circular(20),
                       color: Color(0xFF0A3E31),
                     ),
-                    child: TextField(
-                      controller: txt,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.digitsOnly
-                      ],
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                      ),
-                      onChanged: (val) {
-                        bet(val);
-                      },
+                    child: Form(
+                      key: _formKey,
+                      child: TextFormField(
+                          controller: txt,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                          onChanged: (val) {
+                            bet(val);
+                          },
+                          validator: (text) {
+                            if (text == null || text.isEmpty) {
+                              return 'Value is empty';
+                            }
+                            return null;
+                          }),
                     ),
                   ),
                   Container(
@@ -303,8 +309,14 @@ class BJDialogs {
               SizedBox(height: 10),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context);
-                  bet(int.parse(txt.text));
+                  final isValid = _formKey.currentState!.validate();
+                  if (!isValid) {
+                    return;
+                  } else if (isValid) {
+                    Navigator.pop(context);
+                    bet(int.parse(txt.text));
+                    txt.clear();
+                  }
                 },
                 child: Text("Done"),
                 style: ElevatedButton.styleFrom(primary: Colors.green.shade400),
