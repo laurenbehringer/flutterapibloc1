@@ -44,7 +44,6 @@ dependencies:
   shimmer: ^2.0.0
   cached_network_image: ^3.2.0
   shared_preferences:
-  logger: ^1.1.0
   flutter_secure_storage: ^5.0.2
   google_mobile_ads: ^1.2.0
   root: ^2.0.2
@@ -57,11 +56,15 @@ dependencies:
   encrypt: ^5.0.1
   flutter_contacts:
   url_launcher:
+  lottie: ^1.4.2
   alphabet_scroll_view: ^0.3.1
   azlistview: ^2.0.0-nullsafety.0
   audioplayers: ^1.0.1
   flip_card: ^0.6.0
   flutter_circular_text: "^0.3.1"
+  syncfusion_flutter_sliders: ^20.2.46
+  share_plus: ^4.1.0
+
 
 
 dev_dependencies:

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutterapibloc1/presentation/Shared%20Widgets/Styles.dart';
 import 'package:flutterapibloc1/presentation/Shared%20Widgets/blackjack/AppBar.dart';
 import 'package:flutterapibloc1/presentation/routes/route_const.dart';
-import 'package:flutterapibloc1/presentation/screens/blackjack/blackjackScreens.dart';
+import 'package:lottie/lottie.dart';
 
 class BJDialogs {
   static var txt = TextEditingController();
@@ -13,56 +14,74 @@ class BJDialogs {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('You WON'),
           content: SingleChildScrollView(
-            child: ListBody(
-              children: const <Widget>[
-                Text('Congratulations You WON'),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('You Won', style: ThemeStyles().dialogHeadingWin),
+                Lottie.asset('assets/win.json'),
+                Text('YOU WON :)'),
+                SizedBox(height: 20),
+                Container(
+                  width: MediaQuery.of(context).size.width / 1.8,
+                  height: 40,
+                  child: ElevatedButton(
+                    child: const Text('Continue'),
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.green.shade700, shape: StadiumBorder()),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      /*BaseAppBar.initializePreference(
+                    playerBal == null ? 1000 - 100 : playerBal - 100);*/
+                      Navigator.pushReplacementNamed(context, blackjacScreen);
+                    },
+                  ),
+                )
               ],
             ),
           ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Approve'),
-              onPressed: () {
-                Navigator.of(context).pop();
-                /*BaseAppBar.initializePreference(
-                    playerBal == null ? 1000 + 100 : playerBal + 100);*/
-                Navigator.pushReplacementNamed(context, blackjacScreen);
-              },
-            ),
-          ],
         );
       },
     );
   }
 
   static Future<void> showMyLoseDialog(
-      context, playerBal /*, Future<int> set*/) async {
+    context,
+    /*playerBal*/ /*, Future<int> set*/
+  ) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('You Lost'),
           content: SingleChildScrollView(
-            child: ListBody(
-              children: const <Widget>[
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('You Lost', style: ThemeStyles().dialogHeadingLose),
+                Lottie.asset('assets/lose.json'),
                 Text('YOU LOSE :('),
+                SizedBox(height: 20),
+                Container(
+                  width: MediaQuery.of(context).size.width / 1.8,
+                  height: 40,
+                  child: ElevatedButton(
+                    child: const Text('Continue'),
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.red.shade700, shape: StadiumBorder()),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      /*BaseAppBar.initializePreference(
+                    playerBal == null ? 1000 - 100 : playerBal - 100);*/
+                      Navigator.pushReplacementNamed(context, blackjacScreen);
+                    },
+                  ),
+                )
               ],
             ),
           ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Approve'),
-              onPressed: () {
-                Navigator.of(context).pop();
-                /*BaseAppBar.initializePreference(
-                    playerBal == null ? 1000 - 100 : playerBal - 100);*/
-                Navigator.pushReplacementNamed(context, blackjacScreen);
-              },
-            ),
-          ],
         );
       },
     );

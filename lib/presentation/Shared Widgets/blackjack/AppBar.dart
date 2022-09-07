@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutterapibloc1/presentation/Shared%20Widgets/Styles.dart';
+import 'package:flutterapibloc1/presentation/Shared%20Widgets/blackjack/blackjack_dialogs.dart';
 import 'package:flutterapibloc1/presentation/routes/route_const.dart';
 import 'package:flutterapibloc1/presentation/utils/soundEffects.dart';
+import 'package:share_plus/share_plus.dart';
 
 class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appBar;
@@ -22,7 +24,8 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   void handleClick(String value) {
     switch (value) {
       case 'Settings':
-        Navigator.pushNamed(context, homeScreen);
+        //BJDialogs.showMyWinDialog(context);
+        Navigator.pushNamed(context, blackjacksettingsScreen);
         break;
       case 'Card Counting':
         break;
@@ -58,7 +61,8 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
             onPressed: () {
-              SoundEffect.changeVolume(0);
+              Share.share(
+                  'Check out Flutter App made by Millen https://millen.com');
             },
             icon: Icon(Icons.share)),
         PopupMenuButton<String>(

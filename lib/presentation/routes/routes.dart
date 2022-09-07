@@ -6,6 +6,7 @@ import 'package:flutterapibloc1/presentation/screens/azlistview/azlistview_scree
 import 'package:flutterapibloc1/presentation/screens/blackjack/blackjackScreens.dart';
 import 'package:flutterapibloc1/presentation/screens/blackjack/blackjack_home_screen.dart';
 import 'package:flutterapibloc1/presentation/screens/blackjack/blackjack_screen.dart';
+import 'package:flutterapibloc1/presentation/screens/blackjack/blackjack_settings_screen.dart';
 import 'package:flutterapibloc1/presentation/screens/blackjack/blackjack_strategy_screen.dart';
 import 'package:flutterapibloc1/presentation/screens/buttonandtxt/buttonandtxt_screen.dart';
 import 'package:flutterapibloc1/presentation/screens/contacts/contacts_screen.dart';
@@ -100,6 +101,10 @@ class Routes {
       case blackjackStratScreen:
         return MaterialPageRoute(
           builder: (_) => BlackJackStrategy(),
+        );
+      case blackjacksettingsScreen:
+        return MaterialPageRoute(
+          builder: (_) => BJSettings(),
         );
       default:
         throw ('This route name does not exit');

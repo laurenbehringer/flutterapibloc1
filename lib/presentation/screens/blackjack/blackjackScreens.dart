@@ -260,7 +260,9 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
                           }
                           if (state is LoseState) {
                             Future.delayed(Duration(milliseconds: 700), () {
-                              BJDialogs.showMyLoseDialog(context, playerBal);
+                              BJDialogs.showMyLoseDialog(
+                                context, /*playerBal*/
+                              );
                               setBal(temp! - betVal);
                             });
                           }

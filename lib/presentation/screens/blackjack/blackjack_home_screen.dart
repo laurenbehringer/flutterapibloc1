@@ -1,7 +1,9 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutterapibloc1/presentation/routes/route_const.dart';
 import 'package:flutterapibloc1/presentation/screens/blackjack/blackjackScreens.dart';
+import 'package:flutterapibloc1/presentation/screens/blackjack/blackjack_settings_screen.dart';
 import 'package:flutterapibloc1/presentation/screens/blackjack/blackjack_test_screen.dart';
 import 'package:flutterapibloc1/presentation/utils/soundEffects.dart';
 
@@ -21,7 +23,7 @@ class _BlackJackHomeState extends State<BlackJackHome> {
     // TODO: implement initState
     player.setReleaseMode(ReleaseMode.loop);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      //SoundEffect.playMain();
+      SoundEffect.playMain();
     });
     super.initState();
   }
@@ -70,7 +72,8 @@ class _BlackJackHomeState extends State<BlackJackHome> {
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: button),
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => const BlackJackTestScreen()));
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => const BJSettings()));
                   },
                   child: const Text("Settings")),
             ),
@@ -82,8 +85,8 @@ class _BlackJackHomeState extends State<BlackJackHome> {
               height: MediaQuery.of(context).size.height * 0.08,
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.red),
-                  onPressed: () async {
-                    Navigator.pushReplacementNamed(context, blackjacScreen);
+                  onPressed: () {
+                    SystemNavigator.pop();
                   },
                   child: const Text("Quit")),
             )
