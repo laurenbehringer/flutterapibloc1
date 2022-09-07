@@ -68,7 +68,7 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
 
   void dialogBet() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await BJDialogs.showBetDialog(context, changeBetVal);
+      await BJDialogs.showBetDialog(context, changeBetVal, temp);
     });
   }
 

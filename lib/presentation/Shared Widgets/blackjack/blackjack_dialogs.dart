@@ -119,7 +119,7 @@ class BJDialogs {
     );
   }
 
-  static Future<void> showBetDialog(context, Function bet) async {
+  static Future<void> showBetDialog(context, Function bet, temp) async {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) => new AlertDialog(
@@ -278,6 +278,13 @@ class BJDialogs {
                           validator: (text) {
                             if (text == null || text.isEmpty) {
                               return 'Value is empty';
+                            }
+                            if (int.parse(text) < 10 ||
+                                int.parse(text) > 1000) {
+                              return 'Please enter correct bet';
+                            }
+                            if (int.parse(text) > temp) {
+                              return 'Bet cant be more than balance';
                             }
                             return null;
                           }),
