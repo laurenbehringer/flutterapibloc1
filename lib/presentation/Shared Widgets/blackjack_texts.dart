@@ -1,0 +1,7 @@
+class BJText {
+  String aboutBJText =
+      "Blackjack (formerly Black Jack and Vingt-Un) is a casino banking game. The most widely played casino banking game in the world, it uses decks of 52 cards and descends from a global family of casino banking games known as Twenty-One. This family of card games also includes the British game of Pontoon and the European game, Vingt-et-Un. Blackjack players do not compete against each other. The game is a comparing card game where each player competes against the dealer.";
+
+  String aboutAppText =
+      "This app was made by Millen Joshua Marbun, using flutter clean architecture and Bloc state management, the card api was taken using the website https://deckofcardsapi.com/.";
+}

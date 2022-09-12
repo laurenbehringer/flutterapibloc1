@@ -12,6 +12,5 @@ class ThemeStyles {
       TextStyle(fontWeight: FontWeight.bold, color: Colors.green, fontSize: 24);
   TextStyle dialogHeadingDraw = TextStyle(
       fontWeight: FontWeight.bold, color: Colors.yellow.shade700, fontSize: 24);
-
   Color bjCol = Color(0xFF275A1F);
 }

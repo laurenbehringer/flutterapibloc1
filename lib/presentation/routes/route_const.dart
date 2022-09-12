@@ -18,3 +18,4 @@ const String blackjacScreen = "blackjac-screen";
 const String blackjackhomeScreen = "homebj-screen";
 const String blackjackStratScreen = "blackjack_strat-screen";
 const String blackjacksettingsScreen = "blackjack-settings-screen";
+const String blackjackaboutScreen = "blackjack-about-screen";

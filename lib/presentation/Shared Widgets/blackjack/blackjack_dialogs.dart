@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutterapibloc1/presentation/Shared%20Widgets/Styles.dart';
 import 'package:flutterapibloc1/presentation/Shared%20Widgets/blackjack/AppBar.dart';
+import 'package:flutterapibloc1/presentation/Shared%20Widgets/blackjack/chips_listview.dart';
 import 'package:flutterapibloc1/presentation/routes/route_const.dart';
 import 'package:lottie/lottie.dart';
 
@@ -142,95 +143,8 @@ class BJDialogs {
               SizedBox(height: 20),
               Expanded(
                 child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: ListView(
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      GestureDetector(
-                        child: Image.asset(
-                          "assets/coins/1.png",
-                          scale: 10,
-                        ),
-                        onTap: () {
-                          txt.text = "1";
-                        },
-                      ),
-                      GestureDetector(
-                        child: Image.asset(
-                          "assets/coins/5.png",
-                          scale: 10,
-                        ),
-                        onTap: () {
-                          txt.text = "5";
-                        },
-                      ),
-                      GestureDetector(
-                        child: Image.asset(
-                          "assets/coins/10.png",
-                          scale: 10,
-                        ),
-                        onTap: () {
-                          txt.text = "10";
-                        },
-                      ),
-                      GestureDetector(
-                        child: Image.asset(
-                          "assets/coins/20.png",
-                          scale: 10,
-                        ),
-                        onTap: () {
-                          txt.text = "20";
-                        },
-                      ),
-                      GestureDetector(
-                        child: Image.asset(
-                          "assets/coins/50.png",
-                          scale: 10,
-                        ),
-                        onTap: () {
-                          txt.text = "50";
-                        },
-                      ),
-                      GestureDetector(
-                        child: Image.asset(
-                          "assets/coins/100.png",
-                          scale: 10,
-                        ),
-                        onTap: () {
-                          txt.text = "100";
-                        },
-                      ),
-                      GestureDetector(
-                        child: Image.asset(
-                          "assets/coins/250.png",
-                          scale: 10,
-                        ),
-                        onTap: () {
-                          txt.text = "250";
-                        },
-                      ),
-                      GestureDetector(
-                        child: Image.asset(
-                          "assets/coins/500.png",
-                          scale: 10,
-                        ),
-                        onTap: () {
-                          txt.text = "500";
-                        },
-                      ),
-                      GestureDetector(
-                        child: Image.asset(
-                          "assets/coins/1000.png",
-                          scale: 10,
-                        ),
-                        onTap: () {
-                          txt.text = "1000";
-                        },
-                      ),
-                    ],
-                  ),
-                ),
+                    width: MediaQuery.of(context).size.width,
+                    child: ChipsListView(context, txt)),
               ),
               SizedBox(height: 20),
               Row(
@@ -300,7 +214,7 @@ class BJDialogs {
                             width: 2,
                             color: Colors.white,
                           )),
-                      child: Text("x2"),
+                      child: Text("2x"),
                       onPressed: () {
                         txt.text = (int.parse(txt.text) * 2).toString();
                       },

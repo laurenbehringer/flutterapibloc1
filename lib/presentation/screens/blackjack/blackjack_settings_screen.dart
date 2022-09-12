@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutterapibloc1/presentation/Shared%20Widgets/Styles.dart';
+import 'package:flutterapibloc1/presentation/screens/blackjack/blackjackScreens.dart';
 import 'package:flutterapibloc1/presentation/utils/soundEffects.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class BJSettings extends StatefulWidget {
-  const BJSettings({Key? key}) : super(key: key);
+  const BJSettings({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<BJSettings> createState() => _BJSettingsState();
 }
 
 class _BJSettingsState extends State<BJSettings> {
+  GlobalKey<BlackJacScreenState> _key = GlobalKey<BlackJacScreenState>();
+
   double _value = 50.0;
   bool isMuted = false;
+  int modifiedBankroll = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -50,15 +56,20 @@ class _BJSettingsState extends State<BJSettings> {
                 decoration: InputDecoration(
                   border: InputBorder.none,
                 ),
-                onChanged: (val) {},
+                onChanged: (val) {
+                  modifiedBankroll = int.parse(val);
+                },
               ),
             ),
             SizedBox(height: 20),
+            Text("$modifiedBankroll"),
             Container(
               width: double.infinity,
               height: 60,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  _key.currentState?.setBal(60);
+                },
                 child: Text(
                   "Reset Bankroll",
                   style: TextStyle(fontSize: 16),

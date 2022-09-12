@@ -4,6 +4,7 @@ import 'package:flutterapibloc1/presentation/routes/route_const.dart';
 import 'package:flutterapibloc1/presentation/screens/azlistview/azcontacts/azcontacts_screen.dart';
 import 'package:flutterapibloc1/presentation/screens/azlistview/azlistview_screen.dart';
 import 'package:flutterapibloc1/presentation/screens/blackjack/blackjackScreens.dart';
+import 'package:flutterapibloc1/presentation/screens/blackjack/blackjack_about_screen.dart';
 import 'package:flutterapibloc1/presentation/screens/blackjack/blackjack_home_screen.dart';
 import 'package:flutterapibloc1/presentation/screens/blackjack/blackjack_screen.dart';
 import 'package:flutterapibloc1/presentation/screens/blackjack/blackjack_settings_screen.dart';
@@ -105,6 +106,10 @@ class Routes {
       case blackjacksettingsScreen:
         return MaterialPageRoute(
           builder: (_) => BJSettings(),
+        );
+      case blackjackaboutScreen:
+        return MaterialPageRoute(
+          builder: (_) => AboutScreen(),
         );
       default:
         throw ('This route name does not exit');

@@ -10,16 +10,15 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appBar;
   final BuildContext context;
   final int Balance;
+  final Function setBal;
 
   BaseAppBar(
-      {required this.context, required this.appBar, required this.Balance});
+      {required this.context,
+      required this.appBar,
+      required this.Balance,
+      required this.setBal});
 
-  List<String> overflowMenu = [
-    'Settings',
-    'Card Counting',
-    'Strategy',
-    'About'
-  ];
+  List<String> overflowMenu = ['Settings', 'Reset Table', 'Strategy', 'About'];
 
   void handleClick(String value) {
     switch (value) {
@@ -27,11 +26,14 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
         //BJDialogs.showMyWinDialog(context);
         Navigator.pushNamed(context, blackjacksettingsScreen);
         break;
-      case 'Card Counting':
-        //BJDialogs.showMyDrawDialog(context);
+      case 'Reset Table':
+        Navigator.pushNamed(context, blackjacScreen);
         break;
       case 'Strategy':
         Navigator.pushNamed(context, blackjackStratScreen);
+        break;
+      case 'About':
+        Navigator.pushNamed(context, blackjackaboutScreen);
         break;
     }
   }

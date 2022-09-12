@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapibloc1/bloc/bj_bloc/blackjackk_bloc.dart';
@@ -15,10 +16,10 @@ import 'package:flutter_circular_text/circular_text.dart';
 class BlackJacScreen extends StatefulWidget {
   BlackJacScreen({Key? key}) : super(key: key);
   @override
-  State<BlackJacScreen> createState() => _BlackJacScreenState();
+  State<BlackJacScreen> createState() => BlackJacScreenState();
 }
 
-class _BlackJacScreenState extends State<BlackJacScreen> {
+class BlackJacScreenState extends State<BlackJacScreen> {
   var txt = TextEditingController();
   String? deckId;
   List<String> dealercards = [], playercards = [];
@@ -47,17 +48,21 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
     });
   }
 
+  void printing() {
+    print("A B C D E F G");
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     dialogBet();
+    _getStoredColor();
+    BlocProvider.of<BlackjackkBloc>(context).add(ShuffleCardEvent());
+    super.initState();
     /*playerBal = BaseAppBar.getVal();*/
     /*BaseAppBar.initializePreference(playerBal).whenComplete(() {
       setState(() {});
     });*/
-    _getStoredColor();
-    BlocProvider.of<BlackjackkBloc>(context).add(ShuffleCardEvent());
-    super.initState();
   }
 
   void changeBetVal(int betValue) {
@@ -67,7 +72,10 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
   }
 
   void dialogBet() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
+    /*WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await BJDialogs.showBetDialog(context, changeBetVal, temp);
+    });*/
+    Future.delayed(Duration(milliseconds: 10), () async {
       await BJDialogs.showBetDialog(context, changeBetVal, temp);
     });
   }
@@ -93,6 +101,7 @@ class _BlackJacScreenState extends State<BlackJacScreen> {
               context: context,
               appBar: AppBar(),
               Balance: temp,
+              setBal: setBal,
             ),
             body: Column(
               children: [
