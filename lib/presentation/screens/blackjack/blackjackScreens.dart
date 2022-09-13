@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapibloc1/bloc/bj_bloc/blackjackk_bloc.dart';
@@ -69,9 +68,6 @@ class BlackJacScreenState extends State<BlackJacScreen> {
   }
 
   void dialogBet() {
-    /*WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await BJDialogs.showBetDialog(context, changeBetVal, temp);
-    });*/
     Future.delayed(Duration(milliseconds: 10), () async {
       await BJDialogs.showBetDialog(context, changeBetVal, temp);
     });
@@ -98,7 +94,6 @@ class BlackJacScreenState extends State<BlackJacScreen> {
               context: context,
               appBar: AppBar(),
               Balance: temp,
-              setBal: setBal,
             ),
             body: Column(
               children: [
@@ -151,12 +146,6 @@ class BlackJacScreenState extends State<BlackJacScreen> {
                         ),
                       ),
                       SizedBox(height: 15),
-                      /*ElevatedButton(
-                          onPressed: () {
-                            dialogBet();
-                            setBal(temp! + 120);
-                          },
-                          child: Text("k")),*/
                       //missing
                       BlocBuilder<BlackjackkBloc, BlackjackkState>(
                           bloc: dealbloc,
@@ -228,7 +217,7 @@ class BlackJacScreenState extends State<BlackJacScreen> {
                                 state.dealerVal < 22) {
                               valuebloc.add(LoseEvent());
                             }
-                            if (state.dealerVal > 18) {
+                            if (state.dealerVal > 17) {
                               if (state.dealerVal > 21 ||
                                   playerVal > state.dealerVal) {
                                 valuebloc.add(WinEvent());

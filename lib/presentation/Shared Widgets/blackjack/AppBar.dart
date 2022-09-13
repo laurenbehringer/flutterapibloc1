@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutterapibloc1/presentation/Shared%20Widgets/Styles.dart';
-import 'package:flutterapibloc1/presentation/Shared%20Widgets/blackjack/blackjack_dialogs.dart';
 import 'package:flutterapibloc1/presentation/routes/route_const.dart';
-import 'package:flutterapibloc1/presentation/utils/soundEffects.dart';
 import 'package:share_plus/share_plus.dart';
 
 class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appBar;
   final BuildContext context;
   final int Balance;
-  final Function setBal;
 
   BaseAppBar(
-      {required this.context,
-      required this.appBar,
-      required this.Balance,
-      required this.setBal});
+      {required this.context, required this.appBar, required this.Balance});
 
   List<String> overflowMenu = ['Settings', 'Reset Table', 'Strategy', 'About'];
 
@@ -24,7 +18,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
     switch (value) {
       case 'Settings':
         //BJDialogs.showMyWinDialog(context);
-        Navigator.pushNamed(context, blackjacksettingsScreen);
+        Navigator.pushReplacementNamed(context, blackjacksettingsScreen);
         break;
       case 'Reset Table':
         Navigator.pushNamed(context, blackjacScreen);

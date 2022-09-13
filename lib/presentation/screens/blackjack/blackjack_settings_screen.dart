@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapibloc1/presentation/Shared%20Widgets/Styles.dart';
+import 'package:flutterapibloc1/presentation/routes/route_const.dart';
 import 'package:flutterapibloc1/presentation/screens/blackjack/blackjackScreens.dart';
 import 'package:flutterapibloc1/presentation/screens/blackjack/bloc/set_balance_bloc.dart';
 import 'package:flutterapibloc1/presentation/utils/soundEffects.dart';
@@ -71,7 +72,7 @@ class _BJSettingsState extends State<BJSettings> {
                 onPressed: () {
                   BlocProvider.of<SetBalanceBloc>(context)
                       .add(ResetBankrollEvent(modifiedBankroll));
-                  print("bruh finished");
+                  Navigator.pushReplacementNamed(context, blackjacScreen);
                 },
                 child: Text(
                   "Reset Bankroll",

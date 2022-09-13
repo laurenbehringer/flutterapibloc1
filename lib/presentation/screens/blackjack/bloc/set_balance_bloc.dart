@@ -11,7 +11,6 @@ class SetBalanceBloc extends Bloc<SetBalanceEvent, SetBalanceState> {
   SetBalanceBloc() : super(SetBalanceInitial()) {
     on<SetBalanceEvent>((event, emit) async {
       if (event is ResetBankrollEvent) {
-        print("the bronze jade");
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setInt("temp", event.tempVal);
       }
