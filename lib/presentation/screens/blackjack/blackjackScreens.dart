@@ -32,6 +32,7 @@ class BlackJacScreenState extends State<BlackJacScreen> {
   final BlackjackkBloc playerbloc = BlackjackkBloc();
 
   int temp = 100, betVal = 0;
+
   void _getStoredColor() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? tempVAl = prefs.getInt('temp');
@@ -46,10 +47,6 @@ class BlackJacScreenState extends State<BlackJacScreen> {
     setState(() {
       temp = tempVal;
     });
-  }
-
-  void printing() {
-    print("A B C D E F G");
   }
 
   @override

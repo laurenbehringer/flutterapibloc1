@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterapibloc1/presentation/Shared%20Widgets/Styles.dart';
 import 'package:flutterapibloc1/presentation/screens/blackjack/blackjackScreens.dart';
+import 'package:flutterapibloc1/presentation/screens/blackjack/bloc/set_balance_bloc.dart';
 import 'package:flutterapibloc1/presentation/utils/soundEffects.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
@@ -62,13 +64,14 @@ class _BJSettingsState extends State<BJSettings> {
               ),
             ),
             SizedBox(height: 20),
-            Text("$modifiedBankroll"),
             Container(
               width: double.infinity,
               height: 60,
               child: ElevatedButton(
                 onPressed: () {
-                  _key.currentState?.setBal(60);
+                  BlocProvider.of<SetBalanceBloc>(context)
+                      .add(ResetBankrollEvent(modifiedBankroll));
+                  print("bruh finished");
                 },
                 child: Text(
                   "Reset Bankroll",
